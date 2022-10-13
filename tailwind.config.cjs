@@ -5,6 +5,10 @@ module.exports = {
       center: true,
     },
 
+    fontFamily: {
+      mono: ["'Montserrat'"],
+    },
+
     extend: {
       backgroundImage: {
         cover: "var(--image-cover)",

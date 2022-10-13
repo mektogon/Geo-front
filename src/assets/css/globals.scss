@@ -1,8 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  background: linear-gradient(107.41deg, #E1E8FF 0%, rgba(185, 185, 185, 0) 99.03%);
+  background: linear-gradient(
+    107.41deg,
+    #e1e8ff 0%,
+    rgba(185, 185, 185, 0) 99.03%
+  );
+}
+
+:root {
+  --image-cover: url("../images/geo.svg");
 }

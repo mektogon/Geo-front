@@ -1,0 +1,32 @@
+.auth {
+  @apply flex flex-col justify-center;
+}
+
+.sign_in_form {
+  @apply flex w-1/2 flex-col justify-center gap-4 rounded-xl bg-white px-5;
+}
+
+.cover {
+  @apply h-[90px] w-[90px] bg-cover;
+}
+
+.sign_in_form button {
+  @apply mx-auto my-0  mt-5 w-52;
+}
+
+.title {
+  @apply mb-4 px-5 font-mono  text-xl	font-bold;
+}
+
+@screen md {
+  .auth {
+    @apply mx-auto my-0 flex h-screen w-2/6 items-center justify-center;
+  }
+  .card {
+    @apply flex w-1/2 flex-row rounded-lg shadow-lg;
+  }
+
+  .sign_in_form {
+    @apply w-full p-6;
+  }
+}
