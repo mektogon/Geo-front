@@ -1,0 +1,6 @@
+import React from "react";
+
+export const Auth: React.FC = () => {
+  console.log("@");
+  return <div>AUTH</div>;
+};
