@@ -12,6 +12,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         cover: "var(--image-cover)",
+        add: "var(--image-add)",
+        find: "var(--image-find)",
+        card: "var(--image-card)",
       },
     },
   },

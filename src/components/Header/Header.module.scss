@@ -1,0 +1,23 @@
+.logo {
+  @apply my-0 h-[60px]  w-[60px] cursor-pointer bg-cover;
+}
+
+.header {
+  @apply flex items-center justify-between py-5;
+}
+
+.list {
+  @apply flex items-center justify-self-start py-5;
+}
+
+.item a {
+  @apply duration-200 ease-in hover:text-sky-500;
+}
+
+.item + .item {
+  @apply pl-11;
+}
+
+.item button {
+  @apply w-40 rounded-2xl;
+}

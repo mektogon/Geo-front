@@ -2,12 +2,16 @@
   @apply flex flex-col justify-center;
 }
 
+.logo {
+  @apply mx-auto my-0;
+}
+
 .sign_in_form {
-  @apply flex w-1/2 flex-col justify-center gap-4 rounded-xl bg-white px-5;
+  @apply flex w-1/2 flex-col justify-center gap-1 rounded-xl bg-slate-200 px-5;
 }
 
 .cover {
-  @apply h-[90px] w-[90px] bg-cover;
+  @apply mx-auto my-0 h-[90px]  w-[90px] bg-cover;
 }
 
 .sign_in_form button {

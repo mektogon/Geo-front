@@ -27,7 +27,6 @@
       "@components": [
         "./components"
       ],
-
       "@layout": [
         "./layout"
       ],
@@ -37,8 +36,14 @@
       "@common/*": [
         "./common/*"
       ],
-      "@ui": [
-        "./ui"
+      "@app": [
+        "./app"
+      ],
+      "@app/*": [
+        "./app"
+      ],
+       "@features": [
+        "./features"
       ],
       "@hooks": [
         "./hooks/"
