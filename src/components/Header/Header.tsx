@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import { Modal } from "@common";
 import { Button } from "@common/buttons";
+import { useAppDispatch, useAppSelector } from "@utils/hooks";
+
+import { logout, reset } from "../../features/auth/authSlice";
 
 import styles from "./Header.module.scss";
 
 export const Header: React.FC = () => {
-  console.log("@");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  const { username } = useAppSelector((state) => state.auth);
+
+  const user = username?.username;
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    setIsOpen(false);
+    toast.success(`Возвращайтесь ${user}`, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo} />
@@ -22,7 +49,15 @@ export const Header: React.FC = () => {
             </a>
           </li>
           <li className={styles.item}>
-            <Button variant="outlined">Sign In</Button>
+            {!username ? (
+              <Link to="/auth">
+                <Button variant="outlined">Sign In</Button>
+              </Link>
+            ) : (
+              <Button variant="outlined" onClick={onLogout}>
+                Выход
+              </Button>
+            )}
           </li>
         </ul>
       </nav>

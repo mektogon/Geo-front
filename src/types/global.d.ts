@@ -1,11 +1,9 @@
-interface NamedAPIResource {
-  name: string;
-  url: string;
+interface LoginUser {
+  username: string | null | undefined;
+  password: string;
 }
 
-interface NamedAPIResourceList {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: NamedAPIResource[];
+interface DisplayUser {
+  username: string;
+  token: string;
 }

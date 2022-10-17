@@ -36,12 +36,6 @@
       "@common/*": [
         "./common/*"
       ],
-      "@app": [
-        "./app"
-      ],
-      "@app/*": [
-        "./app"
-      ],
        "@features": [
         "./features"
       ],

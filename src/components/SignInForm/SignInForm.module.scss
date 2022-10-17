@@ -14,6 +14,10 @@
   @apply mx-auto my-0 h-[90px]  w-[90px] bg-cover;
 }
 
+.sign_in_form input {
+  @apply mt-2;
+}
+
 .sign_in_form button {
   @apply mx-auto my-0  mt-5 w-52;
 }

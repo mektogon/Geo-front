@@ -1,81 +1,90 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Formik } from "formik";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { LoginRequest, useLoginMutation } from "@app/services/auth";
 import { Button } from "@common/buttons";
 import { Input } from "@common/fields";
-import { emailSchema, passwordSchema } from "@utils/validation";
+import { useAppDispatch, useAppSelector } from "@utils/hooks";
+import { ValidationSchema } from "@utils/validation";
 
-import { login, setUser } from "../../features/auth/authSlice";
+import { login } from "../../features/auth/authSlice";
 
 import styles from "./SignInForm.module.scss";
 
-interface SignInFormValues {
-  login: string;
-  password: string;
-}
-
 export const SignInForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const { register, handleSubmit, formState } = useForm<SignInFormValues>({
-    mode: "onSubmit",
-  });
+  const { username, isLoading, isError, isSuccess } = useAppSelector(
+    (state) => state.auth
+  );
 
-  const { errors } = formState;
+  const onSubmit = (userData: LoginUser) => {
+    dispatch(login(userData));
+  };
 
-  // TODO: need fix
-  const [login, { data, isLoading, error, isError, isSuccess }] =
-    useLoginMutation();
+  useEffect(() => {
+    if (isError) {
+      toast.error("error");
+    }
+    if (isSuccess) {
+      navigate("/");
+      toast.success(`Hello `, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [username, isError, isSuccess, navigate, dispatch]);
 
-  if (isSuccess) {
-    dispatch(setUser({ token: data.token, name: data.login }));
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("name", data.login);
-
-    console.log(data, "data");
-  }
+  if (isLoading) return <p>loading</p>;
 
   return (
     <div className={styles.auth}>
-      <form
-        className={styles.sign_in_form}
-        onSubmit={handleSubmit((values) => login({ ...values }))}
+      <Formik
+        initialValues={{
+          username: "",
+          password: "",
+        }}
+        validationSchema={ValidationSchema}
+        onSubmit={(values) => onSubmit(values)}
       >
-        <div className={styles.logo}>
-          <div className={styles.cover} />
-          <h1 className={styles.title}>Вход в панель администратора</h1>
-        </div>
+        {({ values, handleChange, errors, handleBlur }) => (
+          <Form className={styles.sign_in_form}>
+            <div className={styles.logo}>
+              <div className={styles.cover} />
+              <h1 className={styles.title}>Вход в панель администратора</h1>
+            </div>
 
-        <Input
-          {...register("login", emailSchema)}
-          placeholder="login"
-          type="text"
-          error={errors.login?.message}
-        />
-        <Input
-          {...register("password", passwordSchema)}
-          placeholder="password"
-          type="password"
-          error={errors.password?.message}
-        />
-        <Button
-          type="submit"
-          variant="outlined"
-          onClick={async () => {
-            try {
-              await login(formState).unwrap();
-            } catch (err) {
-              console.log(err);
-            }
-          }}
-        >
-          Sign In
-        </Button>
-      </form>
+            <Input
+              type="text"
+              name="username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.username}
+              error={errors.username}
+            />
+
+            <Input
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+              error={errors.password}
+            />
+
+            <Button type="submit" variant="outlined">
+              Sign In
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
