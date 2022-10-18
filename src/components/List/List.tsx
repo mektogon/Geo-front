@@ -1,9 +1,15 @@
 import React from "react";
 
+import { useGetGeographiesQuery } from "../../features/geo/geo";
+
 import styles from "./List.module.scss";
 
 export const List = () => {
   console.log("list");
+  const { data, isError, isLoading } = useGetGeographiesQuery({});
+
+  console.log(data, "data");
+
   return (
     <div className={styles.list}>
       <div className={styles.card}>
