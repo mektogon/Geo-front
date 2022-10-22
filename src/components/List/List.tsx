@@ -1,31 +1,29 @@
-import React from "react";
+import { Link } from "react-router-dom";
+
+import { Card } from "@components";
 
 import { useGetGeographiesQuery } from "../../features/geo/geo";
+import { Geo } from "../../features/geo/geo.types";
 
 import styles from "./List.module.scss";
 
-export const List = () => {
-  console.log("list");
+export const List: React.FC = () => {
   const { data, isError, isLoading } = useGetGeographiesQuery({});
 
-  console.log(data, "data");
+  if (isLoading) return <p>loading</p>;
+  if (isError) return <p>error</p>;
 
   return (
     <div className={styles.list}>
-      <div className={styles.card}>
-        <div className={styles.top} />
-        <div className={styles.bot}>
-          <div className={styles.left}>
-            <h2 className={styles.title}>Title</h2>
-            <p className={styles.desc}>Долгота</p>
-            <p className={styles.desc}>Широта</p>
-          </div>
-          <div className={styles.right}>
-            <div>update</div>
-            <div>delete</div>
-          </div>
-        </div>
-      </div>
+      {data?.map(({ name, id, latitude, longitude }: Geo) => (
+        <Card
+          key={id}
+          name={name}
+          id={id}
+          latitude={latitude}
+          longitude={longitude}
+        />
+      ))}
     </div>
   );
 };

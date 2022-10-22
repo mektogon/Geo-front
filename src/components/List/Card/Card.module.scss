@@ -1,0 +1,31 @@
+.card {
+  @apply ml-12 h-max rounded-xl bg-white p-3 shadow-lg;
+}
+
+.top {
+  @apply bg-card mx-auto mb-2 h-28 rounded-xl;
+}
+
+.bot {
+  @apply flex  justify-between;
+}
+
+.right {
+  @apply flex  flex-col justify-between pt-3;
+}
+
+.title {
+  @apply w-[200px] cursor-pointer overflow-hidden	text-ellipsis whitespace-nowrap font-mono text-2xl font-bold hover:whitespace-normal;
+}
+
+.desc {
+  @apply font-mono text-sm text-slate-500;
+}
+
+.update {
+  @apply bg-update h-[20px] w-[20px] cursor-pointer;
+}
+
+.delete {
+  @apply bg-delete h-[20px] w-[20px] cursor-pointer;
+}

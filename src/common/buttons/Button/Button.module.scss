@@ -1,8 +1,8 @@
 .button {
   @apply flex items-center justify-center;
-  @apply h-12 w-full rounded-lg bg-inherit shadow-md;
+  @apply h-12  rounded-lg bg-inherit shadow-md;
   @apply text-lg font-medium;
-
+  // w-full
   @apply shadow-sm;
 }
 

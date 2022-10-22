@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import "swiper/css";
+
 import { store } from "./features/store";
 import App from "./App";
 

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Modal } from "@common";
 import { Button } from "@common/buttons";
 import { useAppDispatch, useAppSelector } from "@utils/hooks";
 
@@ -35,18 +34,20 @@ export const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo} />
+      <Link to="/">
+        <div className={styles.logo} />
+      </Link>
       <nav className={styles.nav}>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <a href="/*" className={styles.link}>
+            <Link to="/category" className={styles.link}>
               Категории
-            </a>
+            </Link>
           </li>
           <li className={styles.item}>
-            <a href="/*" className={styles.link}>
+            <Link to="/*" className={styles.link}>
               Обозначения
-            </a>
+            </Link>
           </li>
           <li className={styles.item}>
             {!username ? (

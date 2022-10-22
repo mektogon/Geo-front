@@ -1,0 +1,26 @@
+.update,
+.delete {
+  @apply w-full cursor-pointer rounded-lg bg-no-repeat shadow-xl;
+  @apply flex flex-row items-center justify-center py-2;
+  @apply duration-200 hover:shadow-2xl;
+}
+
+.delete {
+  @apply ml-5;
+}
+
+.icon {
+  @apply mr-2 h-8 w-10 text-center;
+}
+
+.detail {
+  @apply w-full;
+}
+
+.img {
+  @apply w-1/2;
+}
+
+.actions {
+  @apply flex items-center justify-evenly py-5;
+}

@@ -23,14 +23,18 @@ export const geoApi = createApi({
   }),
 
   endpoints: (build) => ({
-    getGeographies: build.query<Geo, number>({
+    getGeographies: build.query<Geo, void>({
       query: () => ({
         url: "/geo",
         method: "GET",
       }),
       providesTags: [{ type: "geo", id: "LIST" }],
     }),
+    getGeography: build.query<Geo, number>({
+      query: (id) => `geo/getById/${id}`,
+      providesTags: (_geo, _err, id) => [{ type: "geo", id }],
+    }),
   }),
 });
 
-export const { useGetGeographiesQuery } = geoApi;
+export const { useGetGeographiesQuery, useGetGeographyQuery } = geoApi;

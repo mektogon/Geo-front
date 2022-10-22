@@ -15,6 +15,8 @@ module.exports = {
         add: "var(--image-add)",
         find: "var(--image-find)",
         card: "var(--image-card)",
+        update: "var(--image-update)",
+        delete: "var(--image-delete)",
       },
     },
   },

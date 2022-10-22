@@ -9,16 +9,16 @@ interface AddressDto {
 }
 
 export interface Geo {
-  id: string;
-  name: string;
-  type: string;
-  latitude: string;
-  longitude: string;
-  description: string;
-  note: string;
-  designation: string;
-  addressDto: AddressDto;
-  photoList: string[];
-  videoList: string[];
-  audioList: string[];
+  id?: string;
+  name?: string;
+  type?: string;
+  latitude?: string;
+  longitude?: string;
+  description?: string;
+  note?: string;
+  designation?: string;
+  addressDto?: AddressDto;
+  photoList?: string[];
+  videoList?: string[];
+  audioList?: string[];
 }

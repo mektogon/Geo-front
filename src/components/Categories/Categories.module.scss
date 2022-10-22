@@ -1,0 +1,31 @@
+.categories_inner {
+  @apply mx-auto my-5 max-w-[1000px];
+}
+
+.title {
+  @apply font-mono text-lg font-bold uppercase;
+}
+
+.add {
+  @apply flex items-center justify-between rounded-2xl p-3 shadow-lg;
+
+  button {
+    @apply justify-start;
+  }
+
+  .input {
+    @apply mx-5 w-full;
+  }
+
+  input {
+    @apply w-full;
+  }
+
+  p {
+    @apply font-mono text-sm font-bold uppercase;
+  }
+}
+
+.categories {
+  @apply flex flex-col items-center justify-center;
+}

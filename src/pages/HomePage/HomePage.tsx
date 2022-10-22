@@ -1,8 +1,8 @@
 import React from "react";
 
-import { List,Search } from "@components";
+import { List, Search } from "@components";
 
-export const Home: React.FC = () => {
+export const HomePage: React.FC = () => {
   console.log("@");
   return (
     <>
