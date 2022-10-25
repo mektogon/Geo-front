@@ -2,6 +2,10 @@
   @apply ml-12 h-max rounded-xl bg-white p-3 shadow-lg;
 }
 
+.card + .card {
+  @apply my-4;
+}
+
 .top {
   @apply bg-card mx-auto mb-2 h-28 rounded-xl;
 }
@@ -15,7 +19,8 @@
 }
 
 .title {
-  @apply w-[200px] cursor-pointer overflow-hidden	text-ellipsis whitespace-nowrap font-mono text-2xl font-bold hover:whitespace-normal;
+  @apply w-[200px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap font-mono text-2xl  font-bold hover:whitespace-normal;
+  // overflow-hidden text-ellipsis  hover:whitespace-normal whitespace-nowrap
 }
 
 .desc {

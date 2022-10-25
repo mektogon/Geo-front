@@ -34,7 +34,19 @@ export const geoApi = createApi({
       query: (id) => `geo/getById/${id}`,
       providesTags: (_geo, _err, id) => [{ type: "geo", id }],
     }),
+    createGeo: build.mutation<Geo, Geo>({
+      query: (body) => ({
+        url: `geo`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["geo"],
+    }),
   }),
 });
 
-export const { useGetGeographiesQuery, useGetGeographyQuery } = geoApi;
+export const {
+  useGetGeographiesQuery,
+  useGetGeographyQuery,
+  useCreateGeoMutation,
+} = geoApi;

@@ -20,5 +20,5 @@ export interface Geo {
   addressDto?: AddressDto;
   photoList?: string[];
   videoList?: string[];
-  audioList?: string[];
+  audioList: string;
 }

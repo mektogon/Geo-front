@@ -3,8 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Button } from "@common/buttons";
-import { Input } from "@common/fields";
+import { Button, Input } from "@common";
 import { useAppDispatch, useAppSelector } from "@utils/hooks";
 import { ValidationSchema } from "@utils/validation";
 

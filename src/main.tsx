@@ -9,6 +9,7 @@ import "swiper/css";
 import { store } from "./features/store";
 import App from "./App";
 
+import "react-h5-audio-player/lib/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/css/globals.scss";
 

@@ -1,6 +1,7 @@
 export * from "./Categories/Categories";
 export * from "./Categories/Category/Category";
 export * from "./Detail/Detail";
+export * from "./FormGeo/FormGeo";
 export * from "./Header/Header";
 export * from "./List/Card/Card";
 export * from "./List/List";

@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
 import { Player } from "@common";
-import { Slider } from "@components";
+import { FormGeo,Slider } from "@components";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,20 +15,15 @@ export const Detail = () => {
   const { id } = useParams<{ id: any }>();
   const { data: geo, isLoading } = useGetGeographyQuery(id);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (!geo) return <div>Missing geo!</div>;
 
-  if (!geo) {
-    return <div>Missing geo!</div>;
-  }
-
-  console.log(geo, "geo");
+  const url = geo.audioList[0];
 
   return (
     <div className={styles.detail}>
       <div className={styles.img}>
-        <h3>{geo.name}</h3>
+        <h3 className={styles.title}>{geo.name}</h3>
         <div className={styles.actions}>
           <div className={styles.update}>
             <svg
@@ -66,12 +61,22 @@ export const Detail = () => {
           </div>
         </div>
         <Slider items={geo.photoList} />
-        <div>
-          <p>Обозначения</p>
+
+        <div className={styles.designation}>
+          <div>
+            <p>Обозначения</p>
+          </div>
+          <div className={styles.desc}>
+            <p>Широта: {geo.latitude}</p>
+            <p>Долгота: {geo.longitude}</p>
+            <p>Тип: {geo.type}</p>
+          </div>
         </div>
-        <Player url={geo.audioList} />
+
+        <Player url={url} />
       </div>
-      <div className={styles.desc}>asd</div>
+
+      <FormGeo geo={geo} />
     </div>
   );
 };

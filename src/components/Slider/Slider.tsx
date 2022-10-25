@@ -17,7 +17,7 @@ export const Slider = ({ items }: any) => (
     className="mySwiper"
   >
     {items.map((item: string) => (
-      <SwiperSlide>
+      <SwiperSlide key={item}>
         <div className={styles.img}>
           <img src={item} alt={item} />
         </div>

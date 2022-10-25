@@ -5,6 +5,10 @@
   @apply duration-200 hover:shadow-2xl;
 }
 
+.title {
+  @apply font-mono text-2xl font-bold;
+}
+
 .delete {
   @apply ml-5;
 }
@@ -14,7 +18,7 @@
 }
 
 .detail {
-  @apply w-full;
+  @apply flex w-full;
 }
 
 .img {
@@ -23,4 +27,16 @@
 
 .actions {
   @apply flex items-center justify-evenly py-5;
+}
+
+.designation {
+  @apply flex justify-evenly py-2;
+}
+
+.desc {
+  @apply flex flex-col;
+
+  p {
+    @apply font-mono text-sm font-bold;
+  }
 }

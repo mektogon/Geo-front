@@ -1,3 +1,4 @@
+export * from "./AddPage/AddPage";
 export * from "./Auth/Auth";
 export * from "./CategoryPage/CategoryPage";
 export * from "./DetailsPage/DetailsPage";

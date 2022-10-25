@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Button } from "@common/buttons";
+import { Button } from "@common";
 import { useAppDispatch, useAppSelector } from "@utils/hooks";
 
 import { logout, reset } from "../../features/auth/authSlice";

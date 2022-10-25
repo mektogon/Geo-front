@@ -3,4 +3,5 @@ export const ROUTES = {
   AUTH: "/auth",
   CATEGORY: "/category",
   DETAILS: "/details/:id",
+  ADD: "/add-more",
 };
