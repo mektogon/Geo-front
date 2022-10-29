@@ -1,0 +1,14 @@
+.add {
+  @apply mx-auto w-1/2 px-3;
+}
+
+.add_form {
+}
+
+.buttons {
+  @apply flex;
+
+  button {
+    @apply mx-auto mt-5 w-52;
+  }
+}

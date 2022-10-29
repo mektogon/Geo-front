@@ -1,5 +1,7 @@
 import React from "react";
 
+import { AddMoreGeo } from "@components";
+
 import styles from "./AddPage.module.scss";
 
-export const AddPage = () => <div>AddPage</div>;
+export const AddPage = () => <AddMoreGeo />;

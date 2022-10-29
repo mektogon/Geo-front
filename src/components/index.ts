@@ -1,3 +1,4 @@
+export * from "./AddMoreGeo/AddMoreGeo";
 export * from "./Categories/Categories";
 export * from "./Categories/Category/Category";
 export * from "./Detail/Detail";

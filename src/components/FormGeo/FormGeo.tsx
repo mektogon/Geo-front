@@ -9,17 +9,6 @@ import styles from "./FormGeo.module.scss";
 export const FormGeo = ({ geo }: any) => {
   const [createGeo, { isLoading: isLoadingCreateGeo }] = useCreateGeoMutation();
 
-  const onSubmit = async (data) => {
-    await createGeo(data)
-      .unwrap()
-      .then((payload) => {
-        console.log(payload);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <div className={styles.form}>
       <Formik
@@ -33,7 +22,7 @@ export const FormGeo = ({ geo }: any) => {
           district: "",
           home: "",
         }}
-        onSubmit={(values) => onSubmit(values)}
+        onSubmit={(values) => console.log(values)}
       >
         {({ values, handleChange, handleBlur }) => (
           <Form className={styles.sign_in_form}>

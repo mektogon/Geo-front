@@ -17,7 +17,6 @@ export const Card: React.FC<Geo> = ({ ...props }) => (
         <p className={styles.desc}>Широта: {props.longitude}</p>
       </div>
       <div className={styles.right}>
-        <div className={styles.update} />
         <div className={styles.delete} />
       </div>
     </div>
