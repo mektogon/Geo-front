@@ -24,6 +24,7 @@ export const Dropzone: React.FC<DropZoneProps> = ({
   maxFiles,
   files,
   setFiles,
+  onChange,
   ...props
 }) => {
   const onDrop = useCallback((acceptedFiles: any) => {
@@ -56,7 +57,7 @@ export const Dropzone: React.FC<DropZoneProps> = ({
       <span className={styles.label}>{placeholder}</span>
 
       <div {...getRootProps()} className={styles.dropzone}>
-        <input {...getInputProps()} {...props} />
+        <input {...getInputProps()} {...props} onChange={onChange} />
         {isDragActive ? <p>Drop the files here...</p> : <p>{text}</p>}
         <em>{extension}</em>
       </div>

@@ -1,24 +1,29 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { Player } from "@common";
-import { FormGeo,Slider } from "@components";
+import { Button, Player } from "@common";
+import { FormGeo, Slider } from "@components";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
-import { useGetGeographyQuery } from "../../features/geo/geo";
+import {
+  useDeleteGeoMutation,
+  useGetGeographyQuery,
+} from "../../features/geo/geo";
 
 import styles from "./Detail.module.scss";
 
 export const Detail = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: any }>();
   const { data: geo, isLoading } = useGetGeographyQuery(id);
+  const [deleteGeo, { isLoading: isDeleteGeo }] = useDeleteGeoMutation();
 
   if (isLoading) return <div>Loading...</div>;
   if (!geo) return <div>Missing geo!</div>;
 
-  const url = geo.audioList[0];
+  const url = geo?.audioList[0];
 
   return (
     <div className={styles.detail}>
@@ -42,7 +47,15 @@ export const Detail = () => {
             </svg>
             Редактировать
           </div>
-          <div className={styles.delete}>
+          <Button
+            className={styles.delete}
+            onClick={() => deleteGeo(id).then(() => navigate("/"))}
+            tabIndex={0}
+            loading={isDeleteGeo}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") deleteGeo(id).then(() => navigate("/"));
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -58,7 +71,7 @@ export const Detail = () => {
               />
             </svg>
             Удалить
-          </div>
+          </Button>
         </div>
         <Slider items={geo.photoList} />
 

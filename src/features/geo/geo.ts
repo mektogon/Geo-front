@@ -7,7 +7,7 @@ import { Geo } from "./geo.types";
 
 export const geoApi = createApi({
   reducerPath: "geoApi",
-  tagTypes: ["geo", "types", "designation"],
+  tagTypes: ["geo", "types", "designation", "locality"],
   refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl,
@@ -30,23 +30,29 @@ export const geoApi = createApi({
       }),
       providesTags: [{ type: "geo", id: "LIST" }],
     }),
+
     getGeography: build.query<Geo, number>({
       query: (id) => `geo/getById/${id}`,
       providesTags: (_geo, _err, id) => [{ type: "geo", id }],
     }),
+
+    deleteGeo: build.mutation<{ id: number }, number>({
+      query: (id) => ({
+        url: `/geo/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (geo) => [{ type: "geo", id: geo?.id }],
+    }),
+
     createGeo: build.mutation<Geo, Geo>({
       query: (body) => ({
         url: `geo`,
         method: "POST",
         body,
-        headers: {
-          // "Content-type":
-          //   "application/json; charset=UTF-8; multipart/form-data",
-          "Content-Type": "multipart/form-data; boundary=something",
-        },
       }),
       invalidatesTags: ["geo"],
     }),
+
     getTypes: build.query<void, void>({
       query: () => ({
         url: "/type-object",
@@ -54,12 +60,21 @@ export const geoApi = createApi({
       }),
       providesTags: [{ type: "types", id: "LIST" }],
     }),
+
     getDesignations: build.query<void, void>({
       query: () => ({
         url: "/designation",
         method: "GET",
       }),
       providesTags: [{ type: "designation", id: "LIST" }],
+    }),
+
+    getTypeLocalities: build.query<void, void>({
+      query: () => ({
+        url: "/type-locality",
+        method: "GET",
+      }),
+      providesTags: [{ type: "locality", id: "LIST" }],
     }),
   }),
 });
@@ -69,4 +84,6 @@ export const {
   useCreateGeoMutation,
   useGetTypesQuery,
   useGetDesignationsQuery,
+  useGetTypeLocalitiesQuery,
+  useDeleteGeoMutation,
 } = geoApi;

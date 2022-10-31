@@ -3,6 +3,11 @@
 }
 
 .add_form {
+  @apply mb-8;
+}
+
+.form {
+  @apply flex;
 }
 
 .buttons {
@@ -11,4 +16,16 @@
   button {
     @apply mx-auto mt-5 w-52;
   }
+}
+
+.dropzones {
+  @apply ml-5 w-1/2;
+
+  div {
+    @apply mt-0;
+  }
+}
+
+.big {
+  @apply text-3xl;
 }

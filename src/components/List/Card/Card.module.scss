@@ -1,5 +1,9 @@
 .card {
-  @apply ml-12 h-max rounded-xl bg-white p-3 shadow-lg;
+  @apply ml-12;
+}
+
+.card_inner {
+  @apply h-max rounded-xl bg-white  p-3  shadow-lg;
 }
 
 .card + .card {

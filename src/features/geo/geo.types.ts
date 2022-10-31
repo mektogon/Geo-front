@@ -9,7 +9,7 @@ interface AddressDto {
 }
 
 export interface Geo {
-  id?: string;
+  id?: number;
   name?: string;
   type?: string;
   latitude?: string;
