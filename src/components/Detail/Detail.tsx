@@ -23,7 +23,7 @@ export const Detail = () => {
   if (isLoading) return <div>Loading...</div>;
   if (!geo) return <div>Missing geo!</div>;
 
-  const url = geo?.audioList[0];
+  const url = geo?.audioList![0];
 
   return (
     <div className={styles.detail}>

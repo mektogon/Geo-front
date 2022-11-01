@@ -1,8 +1,7 @@
 import { Field, Form, Formik } from "formik";
-import Select from "react-select";
 import { toast } from "react-toastify";
 
-import { Button, Dropzone, Input, SelectField, TextArea } from "@common";
+import { Button, Input, SelectField, TextArea } from "@common";
 
 import {
   useCreateGeoMutation,
@@ -14,7 +13,7 @@ import {
 import styles from "./AddMoreGeo.module.scss";
 
 const customStyles = {
-  control: (provided) => ({
+  control: (provided: any) => ({
     ...provided,
     marginTop: 15,
   }),
@@ -24,27 +23,27 @@ export const AddMoreGeo = () => {
   const [createGeo, { isLoading: isLoadingCreateGeo }] = useCreateGeoMutation();
 
   const { data: typeObjects, isLoading: isLoadingTypeObjects } =
-    useGetTypesQuery();
+    useGetTypesQuery([]);
 
   const { data: designations, isLoading: isLoadingDesignations } =
-    useGetDesignationsQuery();
+    useGetDesignationsQuery([]);
 
   const { data: typeLocalities, isLoading: isLoadingTypeLocalities } =
-    useGetTypeLocalitiesQuery();
+    useGetTypeLocalitiesQuery([]);
 
   if (isLoadingTypeObjects && isLoadingDesignations) return <p>loading</p>;
 
-  const options = typeObjects?.map((type) => ({
+  const options = typeObjects?.map((type: any) => ({
     value: type.name,
     label: type.name,
   }));
 
-  const options2 = designations?.map((type) => ({
+  const options2 = designations?.map((type: any) => ({
     value: type.name,
     label: type.name,
   }));
 
-  const options3 = typeLocalities?.map((type) => ({
+  const options3 = typeLocalities?.map((type: any) => ({
     value: type.name,
     label: type.name,
   }));
@@ -81,7 +80,7 @@ export const AddMoreGeo = () => {
         }}
         onSubmit={(values) => onSubmit(values)}
       >
-        {({ values, handleChange, touched, errors, handleBlur }) => (
+        {({ values, handleChange, errors, handleBlur }) => (
           <Form>
             <div className={styles.inputs}>
               <Input
@@ -95,10 +94,10 @@ export const AddMoreGeo = () => {
               />
 
               <Field
-                placeholder="Тип объекта"
                 name="type"
                 component={SelectField}
                 options={options}
+                placeholder="Тип Объекта"
                 styles={customStyles}
               />
 
@@ -147,7 +146,6 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.region}
-                // error={errors.addressDto.region}
               />
 
               <Field
@@ -165,7 +163,6 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.locality}
-                // error={errors.addressDto.locality}
               />
 
               <Input
@@ -175,7 +172,6 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.street}
-                // error={errors.street}
               />
 
               <Input
@@ -185,7 +181,6 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.district}
-                // error={errors.addressDto.district}
               />
 
               <Input
@@ -195,7 +190,6 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.houseNumber}
-                // error={errors.addressDto.houseNumber}
               />
 
               <TextArea

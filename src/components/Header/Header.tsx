@@ -15,13 +15,11 @@ export const Header: React.FC = () => {
 
   const { username } = useAppSelector((state) => state.auth);
 
-  const user = username?.username;
-
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
     setIsOpen(false);
-    toast.success(`Возвращайтесь ${user}`, {
+    toast.success(`Возвращайтесь`, {
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,

@@ -8,7 +8,7 @@ interface DropZoneProps extends React.ComponentPropsWithRef<"input"> {
   text?: string;
   placeholder?: string;
   maxFiles?: number;
-  files?: File[] | null;
+  files?: FileList[] | null;
   setFiles?: any;
 }
 
@@ -42,8 +42,8 @@ export const Dropzone: React.FC<DropZoneProps> = ({
     },
   });
 
-  const removeFile = (file: File[]) => () => {
-    const newFiles = [...files];
+  const removeFile = (file: File) => () => {
+    const newFiles = [{ ...files }];
     newFiles.splice(newFiles.indexOf(file), 1);
     setFiles(newFiles);
   };
@@ -62,7 +62,7 @@ export const Dropzone: React.FC<DropZoneProps> = ({
         <em>{extension}</em>
       </div>
 
-      {files?.map((file: File) => (
+      {files?.map((file: any) => (
         <div
           key={file.path}
           style={{
@@ -76,7 +76,7 @@ export const Dropzone: React.FC<DropZoneProps> = ({
       ))}
 
       <div style={{ marginTop: 20 }}>
-        {files.length > 1 && <button onClick={removeAll}>Remove All</button>}
+        {files!.length > 1 && <button onClick={removeAll}>Remove All</button>}
       </div>
     </div>
   );

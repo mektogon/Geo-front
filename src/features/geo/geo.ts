@@ -23,7 +23,7 @@ export const geoApi = createApi({
   }),
 
   endpoints: (build) => ({
-    getGeographies: build.query<Geo, void>({
+    getGeographies: build.query<any, Geo>({
       query: () => ({
         url: "/geo",
         method: "GET",
@@ -53,7 +53,7 @@ export const geoApi = createApi({
       invalidatesTags: ["geo"],
     }),
 
-    getTypes: build.query<void, void>({
+    getTypes: build.query<[], []>({
       query: () => ({
         url: "/type-object",
         method: "GET",
@@ -61,7 +61,7 @@ export const geoApi = createApi({
       providesTags: [{ type: "types", id: "LIST" }],
     }),
 
-    getDesignations: build.query<void, void>({
+    getDesignations: build.query<[], []>({
       query: () => ({
         url: "/designation",
         method: "GET",
@@ -69,7 +69,7 @@ export const geoApi = createApi({
       providesTags: [{ type: "designation", id: "LIST" }],
     }),
 
-    getTypeLocalities: build.query<void, void>({
+    getTypeLocalities: build.query<[], []>({
       query: () => ({
         url: "/type-locality",
         method: "GET",
