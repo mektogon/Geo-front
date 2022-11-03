@@ -1,20 +1,26 @@
 import * as Yup from "yup";
 
 export const addCardSchema = Yup.object().shape({
-  name: Yup.string().required("Required field"),
-  type: Yup.string().required("Required field"),
-  designation: Yup.string().required("Required field"),
-  latitude: Yup.number().required("Required field").min(-90).max(90),
-  longitude: Yup.number().required("Required field").min(-180).max(180),
-  note: Yup.string().required("Required field"),
-  description: Yup.string().required("Required field"),
+  name: Yup.string().required("Обязательное поле"),
+  type: Yup.string().required("Обязательное поле"),
+  designation: Yup.string().required("Обязательное поле"),
+  latitude: Yup.number()
+    .required("Широта должна быть в диапазоне [-90; 90]")
+    .min(-90)
+    .max(90),
+  longitude: Yup.number()
+    .required("Долгота должна быть в диапазоне [-180; 180]")
+    .min(-180)
+    .max(180),
+  note: Yup.string().required("Обязательное поле"),
+  description: Yup.string().required("Обязательное поле"),
 
   addressDto: Yup.object().shape({
-    region: Yup.string().required("Required field"),
-    typeLocality: Yup.string().required("Required field"),
-    locality: Yup.string().required("Required field"),
-    street: Yup.string().required("Required field"),
-    district: Yup.string().required("Required field"),
-    houseNumber: Yup.string().required("Required field"),
+    region: Yup.string().notRequired(),
+    typeLocality: Yup.string().notRequired(),
+    locality: Yup.string().notRequired(),
+    street: Yup.string().notRequired(),
+    district: Yup.string().notRequired(),
+    houseNumber: Yup.string().notRequired(),
   }),
 });
