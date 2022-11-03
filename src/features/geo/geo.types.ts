@@ -8,6 +8,11 @@ interface AddressDto {
   fullAddress: string;
 }
 
+export interface Search {
+  name: string;
+  id: number;
+}
+
 export interface Geo {
   id?: number;
   name?: string;

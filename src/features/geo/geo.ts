@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../utils/api/instance";
 import type { RootState } from "../store";
 
-import { Geo } from "./geo.types";
+import { Geo, Search } from "./geo.types";
 
 export const geoApi = createApi({
   reducerPath: "geoApi",
@@ -27,6 +27,17 @@ export const geoApi = createApi({
       query: () => ({
         url: "/geo",
         method: "GET",
+      }),
+      providesTags: [{ type: "geo", id: "LIST" }],
+    }),
+
+    searchGeography: build.query<Search[], string>({
+      query: (name) => ({
+        url: `/geo/${name}`,
+        method: "GET",
+        params: {
+          name,
+        },
       }),
       providesTags: [{ type: "geo", id: "LIST" }],
     }),
@@ -80,6 +91,7 @@ export const geoApi = createApi({
 });
 export const {
   useGetGeographiesQuery,
+  useSearchGeographyQuery,
   useGetGeographyQuery,
   useCreateGeoMutation,
   useGetTypesQuery,

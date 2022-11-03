@@ -1,21 +1,34 @@
 import { Card } from "@components";
+import { ChangeEvent, useState } from "react";
 
-import { useGetGeographiesQuery } from "../../features/geo/geo";
+import {
+  useGetGeographiesQuery,
+  useSearchGeographyQuery,
+} from "../../features/geo/geo";
 import { Geo } from "../../features/geo/geo.types";
 
 import styles from "./List.module.scss";
 
-export const List = () => {
-  const { data: geo, isError, isLoading } = useGetGeographiesQuery({});
+type Item = {
+  id?: number;
+  name?: string;
+  type?: string;
+  latitude?: string;
+  longitude?: string;
+  description?: string;
+};
 
+interface ListProps {
+  data: Item[] | undefined;
+  isLoading: boolean;
+}
+
+export const List: React.FC<ListProps> = ({ data, isLoading }) => {
   if (isLoading) return <p>loading</p>;
-  if (isError) return <p>error</p>;
-
-  console.log(geo, "geo");
 
   return (
     <div className={styles.list}>
-      {geo?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
+      {data?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
         <Card
           key={id}
           name={name}

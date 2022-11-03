@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, {
   memo,
   ReactNode,
@@ -7,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import { CSSTransition } from "react-transition-group";
-import classNames from "classnames";
+
 import "./Tooltip.scss";
 
 export type TooltipPlacementType = "top" | "bottom" | "left" | "right";

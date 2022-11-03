@@ -1,7 +1,9 @@
 import { Field, Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Button, Input, SelectField, TextArea } from "@common";
+import { addCardSchema } from "@utils/validation";
 
 import {
   useCreateGeoMutation,
@@ -11,8 +13,6 @@ import {
 } from "../../features/geo/geo";
 
 import styles from "./AddMoreGeo.module.scss";
-import { addCardSchema } from "@utils/validation";
-import { useNavigate } from "react-router-dom";
 
 const customStyles = {
   control: (provided: any) => ({
