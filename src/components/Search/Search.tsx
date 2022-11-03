@@ -13,7 +13,7 @@ interface SearchProps extends React.ComponentPropsWithRef<"input"> {
 
 export const Search: React.FC<SearchProps> = ({ onChange }) => (
   <div className={styles.search_block}>
-    <Input
+    <input
       className={styles.search}
       type="text"
       onChange={onChange}
