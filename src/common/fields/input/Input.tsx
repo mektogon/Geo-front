@@ -13,6 +13,7 @@ export const Input: React.FC<InputProps> = React.forwardRef(
   ({ id, placeholder, text, error, ...props }, inputRef) => (
     <label htmlFor={id}>
       <span className={styles.label}>{placeholder}</span>
+      <span className={styles.error}>{error}</span>
       <input
         className={classnames(styles.input, { [styles.input_error]: !!error })}
         ref={inputRef}
@@ -20,7 +21,6 @@ export const Input: React.FC<InputProps> = React.forwardRef(
         placeholder={text}
         {...props}
       />
-      <span className={styles.error}>{error}</span>
     </label>
   )
 );

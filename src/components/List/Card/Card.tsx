@@ -30,11 +30,12 @@ export const Card: React.FC<Geo> = ({ ...props }) => {
           </div>
           <div className={styles.bot}>
             <div className={styles.left}>
-              <Link to={`/details/${props.id}`}>
-                <Tooltip behavior="hover" content={props.name} placement="top">
+              <Tooltip behavior="hover" content={props.name} placement="top">
+                <Link to={`/details/${props.id}`}>
                   <h2 className={styles.title}>{props.name}</h2>
-                </Tooltip>
-              </Link>
+                </Link>
+              </Tooltip>
+
               <p className={styles.desc}>Долгота: {props.latitude}</p>
               <p className={styles.desc}>Широта: {props.longitude}</p>
             </div>

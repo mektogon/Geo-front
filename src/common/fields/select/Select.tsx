@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import { FocusEventHandler } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -15,6 +16,7 @@ interface SelectProps extends React.ComponentPropsWithRef<"select"> {
   form: any;
   placeholder: string;
   options: SelectOption[];
+  error: string;
   onBlur?: FocusEventHandler<HTMLSelectElement | HTMLInputElement>;
 }
 
@@ -25,6 +27,7 @@ export const SelectField: React.FC<SelectProps> = ({
   isMulti = false,
   onBlur,
   placeholder,
+  error,
 }) => {
   const onChange = (option: any) => {
     form.setFieldValue(
@@ -47,9 +50,11 @@ export const SelectField: React.FC<SelectProps> = ({
   return (
     <>
       <span className={styles.label}>{placeholder}</span>
+      <span className={styles.error}>{error}</span>
       <Select
         name={field.name}
         styles={styles}
+        className={classnames(styles.select, { [styles.input_error]: !!error })}
         value={getValue()}
         onBlur={onBlur}
         onChange={onChange}

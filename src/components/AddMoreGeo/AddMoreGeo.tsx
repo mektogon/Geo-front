@@ -11,6 +11,8 @@ import {
 } from "../../features/geo/geo";
 
 import styles from "./AddMoreGeo.module.scss";
+import { addCardSchema } from "@utils/validation";
+import { useNavigate } from "react-router-dom";
 
 const customStyles = {
   control: (provided: any) => ({
@@ -20,6 +22,7 @@ const customStyles = {
 };
 
 export const AddMoreGeo = () => {
+  const navigate = useNavigate();
   const [createGeo, { isLoading: isLoadingCreateGeo }] = useCreateGeoMutation();
 
   const { data: typeObjects, isLoading: isLoadingTypeObjects } =
@@ -53,7 +56,10 @@ export const AddMoreGeo = () => {
   const onSubmit = async (data: any) => {
     await createGeo(data)
       .unwrap()
-      .then((payload: any) => toast.success("Succeeded", payload))
+      .then((payload: any) => {
+        toast.success("Succeeded", payload);
+        navigate("/");
+      })
       .catch((error) => toast.error(error.data.message));
   };
 
@@ -78,9 +84,10 @@ export const AddMoreGeo = () => {
             houseNumber: "",
           },
         }}
+        validationSchema={addCardSchema}
         onSubmit={(values) => onSubmit(values)}
       >
-        {({ values, handleChange, errors, handleBlur }) => (
+        {({ values, handleChange, errors, handleBlur, dirty, isValid }) => (
           <Form>
             <div className={styles.inputs}>
               <Input
@@ -99,6 +106,7 @@ export const AddMoreGeo = () => {
                 options={options}
                 placeholder="Тип Объекта"
                 styles={customStyles}
+                error={errors.type}
               />
 
               <Field
@@ -107,6 +115,7 @@ export const AddMoreGeo = () => {
                 options={options2}
                 component={SelectField}
                 styles={customStyles}
+                error={errors.designation}
               />
 
               <Input
@@ -146,14 +155,17 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.region}
+                error={errors.addressDto?.region}
               />
 
               <Field
-                name="typeLocality"
+                name="addressDto.typeLocality"
                 placeholder="Тип Местности"
                 component={SelectField}
                 options={options3}
+                onBlur={handleBlur}
                 styles={customStyles}
+                error={errors.addressDto?.typeLocality}
               />
 
               <Input
@@ -163,6 +175,7 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.locality}
+                error={errors.addressDto?.locality}
               />
 
               <Input
@@ -172,6 +185,7 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.street}
+                error={errors.addressDto?.street}
               />
 
               <Input
@@ -181,6 +195,7 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.district}
+                error={errors.addressDto?.district}
               />
 
               <Input
@@ -190,6 +205,7 @@ export const AddMoreGeo = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.addressDto.houseNumber}
+                error={errors.addressDto?.houseNumber}
               />
 
               <TextArea
@@ -203,7 +219,11 @@ export const AddMoreGeo = () => {
             </div>
 
             <div className={styles.buttons}>
-              <Button type="submit" variant="outlined">
+              <Button
+                type="submit"
+                variant="outlined"
+                disabled={!(isValid && dirty)}
+              >
                 Сохранить
               </Button>
             </div>

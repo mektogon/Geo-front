@@ -1,1 +1,2 @@
-export * from "./validationSchema";
+export * from "./addCardSchema";
+export * from "./loginSchema";

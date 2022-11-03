@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { Button, Input } from "@common";
 import { useAppDispatch, useAppSelector } from "@utils/hooks";
-import { ValidationSchema } from "@utils/validation";
+import { loginSchema } from "@utils/validation";
 
 import { login } from "../../features/auth/authSlice";
 
@@ -50,7 +50,7 @@ export const SignInForm = () => {
           username: "",
           password: "",
         }}
-        validationSchema={ValidationSchema}
+        validationSchema={loginSchema}
         onSubmit={(values) => onSubmit(values)}
       >
         {({ values, handleChange, errors, handleBlur }) => (

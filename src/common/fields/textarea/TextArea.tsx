@@ -18,12 +18,12 @@ export const TextArea: React.FC<TextAreaProps> = ({
 }) => (
   <label htmlFor={id}>
     <span className={styles.label}>{placeholder}</span>
+    <span className={styles.error}>{error}</span>
     <textarea
       className={classnames(styles.input, { [styles.input_error]: !!error })}
       id={id}
       placeholder={text}
       {...props}
     />
-    <span className={styles.error}>{error}</span>
   </label>
 );
