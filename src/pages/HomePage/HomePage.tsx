@@ -8,12 +8,12 @@ export const HomePage: React.FC = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const { data, isLoading } = useSearchGeographyQuery(searchTitle);
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {
     setSearchTitle(event.target.value);
   };
   return (
     <>
-      <Search onChange={onChange} />
+      <Search onChange={handleChange} />
       <List data={data} isLoading={isLoading} />
     </>
   );
