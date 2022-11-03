@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 
-import { Button, Input } from "@common";
+import { Button } from "@common";
 
 import styles from "./Search.module.scss";
 

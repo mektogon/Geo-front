@@ -8,6 +8,12 @@ interface AddressDto {
   fullAddress: string;
 }
 
+export interface Response {
+  Search: Search[];
+  totalResults: string;
+  Response: string;
+}
+
 export interface Search {
   name: string;
   id: number;

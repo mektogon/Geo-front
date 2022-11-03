@@ -9,6 +9,7 @@ export const geoApi = createApi({
   reducerPath: "geoApi",
   tagTypes: ["geo", "types", "designation", "locality"],
   refetchOnReconnect: true,
+  refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
     baseUrl,
 
@@ -28,7 +29,7 @@ export const geoApi = createApi({
         url: "/geo",
         method: "GET",
       }),
-      providesTags: [{ type: "geo", id: "LIST" }],
+      providesTags: ["geo"],
     }),
 
     searchGeography: build.query<Search[], string>({
@@ -98,4 +99,5 @@ export const {
   useGetDesignationsQuery,
   useGetTypeLocalitiesQuery,
   useDeleteGeoMutation,
+  usePrefetch,
 } = geoApi;
