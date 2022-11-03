@@ -3,7 +3,7 @@
 }
 
 .card_inner {
-  @apply h-max rounded-xl bg-white  p-3  shadow-lg;
+  @apply h-max h-[200px] rounded-xl  bg-white  p-3 shadow-lg;
 }
 
 .card + .card {
@@ -11,7 +11,11 @@
 }
 
 .top {
-  @apply bg-card mx-auto mb-2 h-28 rounded-xl;
+  @apply mb-2  rounded-xl;
+
+  img {
+    @apply mx-auto h-24  w-36;
+  }
 }
 
 .bot {
@@ -23,7 +27,7 @@
 }
 
 .title {
-  @apply w-[200px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap font-mono text-2xl  font-bold hover:whitespace-normal;
+  @apply w-[200px] cursor-pointer  overflow-hidden text-ellipsis  whitespace-nowrap font-mono text-lg  font-bold;
   // overflow-hidden text-ellipsis  hover:whitespace-normal whitespace-nowrap
 }
 

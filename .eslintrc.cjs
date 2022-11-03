@@ -31,6 +31,7 @@ module.exports = {
     "react/react-in-jsx-scope": 0,
     "@typescript-eslint/no-shadow": 0,
     "@typescript-eslint/no-unused-vars": 1,
+    "@typescript-eslint/naming-convention": "warn",
     "consistent-return": 0,
     "no-plusplus": 0,
     "react/function-component-definition": [

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 
-import { Button } from "@common";
+import { Button, Tooltip } from "@common";
 
 import { useDeleteGeoMutation } from "../../../features/geo/geo";
 import { Geo } from "../../../features/geo/geo.types";
@@ -25,11 +25,15 @@ export const Card: React.FC<Geo> = ({ ...props }) => {
     <div className={styles.card}>
       {!isLoadingDeleteGeo ? (
         <div className={styles.card_inner}>
-          <div className={styles.top} />
+          <div className={styles.top}>
+            <img src={props.photoList![0]} alt="" />
+          </div>
           <div className={styles.bot}>
             <div className={styles.left}>
               <Link to={`/details/${props.id}`}>
-                <h2 className={styles.title}>{props.name}</h2>
+                <Tooltip behavior="hover" content={props.name} placement="top">
+                  <h2 className={styles.title}>{props.name}</h2>
+                </Tooltip>
               </Link>
               <p className={styles.desc}>Долгота: {props.latitude}</p>
               <p className={styles.desc}>Широта: {props.longitude}</p>

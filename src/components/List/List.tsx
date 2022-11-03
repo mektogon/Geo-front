@@ -15,12 +15,13 @@ export const List = () => {
 
   return (
     <div className={styles.list}>
-      {geo?.map(({ name, id, latitude, longitude }: Geo) => (
+      {geo?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
         <Card
           key={id}
           name={name}
           id={id}
           latitude={latitude}
+          photoList={photoList}
           longitude={longitude}
         />
       ))}
