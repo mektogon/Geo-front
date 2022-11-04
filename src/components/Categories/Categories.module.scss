@@ -29,3 +29,10 @@
 .categories {
   @apply flex flex-col items-center justify-center;
 }
+
+.form {
+  @apply flex justify-between;
+  label {
+    @apply w-[90%];
+  }
+}

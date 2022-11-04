@@ -1,5 +1,6 @@
-import { Card } from "@components";
 import { ChangeEvent, useCallback, useState } from "react";
+
+import { Card } from "@components";
 
 import {
   useGetGeographiesQuery,
@@ -31,7 +32,6 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
   const prefetchNext = useCallback(
     (id: any) => {
       prefetchPage(id);
-      console.log(id, "iod");
     },
     [prefetchPage]
   );
@@ -39,7 +39,7 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
   return (
     <div className={styles.list}>
       {data?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
-        <button onMouseMove={() => prefetchNext(id, { force: true })}>
+        <button onMouseMove={() => prefetchNext(id)}>
           <Card
             key={id}
             name={name}

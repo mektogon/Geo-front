@@ -12,7 +12,7 @@ export const addCardSchema = Yup.object().shape({
     .required("Долгота должна быть в диапазоне [-180; 180]")
     .min(-180)
     .max(180),
-  note: Yup.string().required("Обязательное поле"),
+  note: Yup.string().notRequired(),
   description: Yup.string().required("Обязательное поле"),
 
   addressDto: Yup.object().shape({

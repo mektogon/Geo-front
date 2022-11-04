@@ -9,7 +9,6 @@ export const geoApi = createApi({
   reducerPath: "geoApi",
   tagTypes: ["geo", "types", "designation", "locality"],
   refetchOnReconnect: true,
-  refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
     baseUrl,
 
