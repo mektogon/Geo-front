@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button, Input } from "@common";
@@ -20,11 +20,12 @@ export const Categories: React.FC = () => {
   const [addCategory, { isLoading: isLoadingCreateCategory }] =
     useAddCategoryMutation();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: any, { resetForm }: any) => {
     await addCategory(data)
       .unwrap()
       .then((payload: any) => {
         toast.success("Succeeded", payload);
+        resetForm("");
       })
       .catch((error: any) => toast.error(error.data));
   };
@@ -40,7 +41,7 @@ export const Categories: React.FC = () => {
               initialValues={{
                 name: "",
               }}
-              onSubmit={(values) => onSubmit(values)}
+              onSubmit={onSubmit}
             >
               {({ values, handleChange, errors, handleBlur }) => (
                 <Form className={styles.form}>

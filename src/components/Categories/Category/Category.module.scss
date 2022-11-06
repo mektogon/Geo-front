@@ -1,12 +1,8 @@
 .category {
-  @apply mx-auto  mt-5 flex  w-full rounded-2xl p-5 shadow-2xl;
+  @apply mx-auto  mt-5   w-full  rounded-2xl p-5 shadow-2xl;
   .text {
     @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
   }
-}
-
-.icons {
-  @apply flex;
 }
 
 .update {
@@ -15,4 +11,12 @@
 
 .delete {
   @apply bg-delete ml-5 h-[20px] w-[20px] cursor-pointer;
+}
+
+.right {
+  @apply flex items-center justify-between;
+}
+
+.buttons {
+  @apply flex items-center text-right;
 }

@@ -21,6 +21,25 @@ const customStyles = {
   }),
 };
 
+const geo = {
+  name: "",
+  type: "",
+  designation: "",
+  latitude: "",
+  longitude: "",
+  note: "",
+  description: "",
+
+  addressDto: {
+    region: "",
+    typeLocality: "",
+    locality: "",
+    street: "",
+    district: "",
+    houseNumber: "",
+  },
+};
+
 export const AddMoreGeo = () => {
   const navigate = useNavigate();
   const [createGeo, { isLoading: isLoadingCreateGeo }] = useCreateGeoMutation();
@@ -60,30 +79,13 @@ export const AddMoreGeo = () => {
         toast.success("Succeeded", payload);
         navigate("/");
       })
-      .catch((error) => toast.error(error.data.message));
+      .catch((data) => toast.error(data.status));
   };
 
   return (
     <div className={styles.add}>
       <Formik
-        initialValues={{
-          name: "",
-          type: "",
-          designation: "",
-          latitude: "",
-          longitude: "",
-          note: "",
-          description: "",
-
-          addressDto: {
-            region: "",
-            typeLocality: "",
-            locality: "",
-            street: "",
-            district: "",
-            houseNumber: "",
-          },
-        }}
+        initialValues={geo}
         validationSchema={addCardSchema}
         onSubmit={(values) => onSubmit(values)}
       >

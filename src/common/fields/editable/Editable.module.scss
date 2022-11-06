@@ -1,0 +1,11 @@
+.form {
+  @apply flex items-center justify-between;
+}
+
+.buttons {
+  @apply flex items-center justify-between;
+
+  button + button {
+    @apply ml-2;
+  }
+}
