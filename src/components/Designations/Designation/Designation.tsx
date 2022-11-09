@@ -1,5 +1,6 @@
-import { Tooltip } from "@common";
 import React from "react";
+
+import { Tooltip } from "@common";
 
 import { IDesignation } from "../../../features/designations/designations.types";
 
@@ -12,5 +13,6 @@ export const Designation = ({ name, url }: IDesignation) => (
         <img src={url} alt="designation" className={styles.img} />
       </div>
     </Tooltip>
+    <h2 className={styles.name}>{name}</h2>
   </div>
 );

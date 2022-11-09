@@ -9,9 +9,10 @@ interface SearchProps extends React.ComponentPropsWithRef<"input"> {
   onChange?: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string
   ) => void;
+  isActive?: boolean;
 }
 
-export const Search: React.FC<SearchProps> = ({ onChange }) => (
+export const Search: React.FC<SearchProps> = ({ onChange, isActive }) => (
   <div className={styles.search_block}>
     <input
       className={styles.search}
@@ -19,12 +20,14 @@ export const Search: React.FC<SearchProps> = ({ onChange }) => (
       onChange={onChange}
       placeholder="Введите название географического объекта"
     />
-    <div className={styles.add}>
-      <Link to="/add-more">
-        <div className={styles.svg} />
+    {isActive && (
+      <div className={styles.add}>
+        <Link to="/add-more">
+          <div className={styles.svg} />
 
-        <Button variant="text">Добавить еще</Button>
-      </Link>
-    </div>
+          <Button variant="text">Добавить еще</Button>
+        </Link>
+      </div>
+    )}
   </div>
 );

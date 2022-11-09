@@ -13,7 +13,7 @@ export const HomePage: React.FC = () => {
   };
   return (
     <>
-      <Search onChange={handleChange} />
+      <Search onChange={handleChange} isActive />
       <List data={data} isLoading={isLoading} />
     </>
   );

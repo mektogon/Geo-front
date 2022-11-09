@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { baseUrl } from "../../utils/api/instance";
 import type { RootState } from "../store";
-import { TDesignations } from "./designations.types";
+
+import { IDesignation,TDesignations } from "./designations.types";
 
 export const designationsApi = createApi({
   reducerPath: "designationsApi",
@@ -27,7 +28,16 @@ export const designationsApi = createApi({
         url: "/designation",
         method: "GET",
       }),
-      providesTags: ["designations"],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: "designations" as const,
+                id,
+              })),
+              { type: "designations", id: "LIST" },
+            ]
+          : [{ type: "designations", id: "LIST" }],
     }),
 
     getDesignation: build.query<any, number>({
@@ -35,17 +45,18 @@ export const designationsApi = createApi({
       providesTags: (_geo, _err, id) => [{ type: "designations", id }],
     }),
 
-    getPhotos: build.query<any, any>({
-      query: () => ({
-        url: "/photo",
-        method: "GET",
+    uploadDesignaion: build.mutation<IDesignation, Partial<IDesignation>>({
+      query: (body) => ({
+        url: `designation`,
+        method: "POST",
+        body,
       }),
-      providesTags: ["photos"],
+      invalidatesTags: [{ type: "designations", id: "LIST" }],
     }),
   }),
 });
 export const {
   useGetDesignationsQuery,
   useGetDesignationQuery,
-  useGetPhotosQuery,
+  useUploadDesignaionMutation,
 } = designationsApi;

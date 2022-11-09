@@ -11,7 +11,7 @@
 }
 
 .cover {
-  @apply mx-auto my-0 h-[90px]  w-[90px] bg-cover;
+  @apply bg-logo mx-auto my-0  h-[90px] w-[90px];
 }
 
 .sign_in_form input {

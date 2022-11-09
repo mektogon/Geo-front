@@ -76,7 +76,7 @@ export const Dropzone: React.FC<DropZoneProps> = ({
       ))}
 
       <div style={{ marginTop: 20 }}>
-        {files!.length > 1 && <button onClick={removeAll}>Remove All</button>}
+        {files!.length > 0 && <button onClick={removeAll}>Remove All</button>}
       </div>
     </div>
   );
