@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React from "react";
 
 import { Button, EditableInput } from "@common";
 

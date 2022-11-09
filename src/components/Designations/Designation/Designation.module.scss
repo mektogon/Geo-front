@@ -1,0 +1,15 @@
+.designation {
+  @apply mr-2 mt-4  flex h-[200px] w-[200px] flex-col items-center justify-center rounded-xl bg-white p-3 text-center shadow-lg;
+}
+
+.name {
+  @apply font-mono text-xl font-bold;
+}
+
+.img {
+  @apply h-full w-36 overflow-hidden rounded-2xl bg-cover object-cover;
+}
+
+.img_container {
+  @apply h-36 w-36;
+}

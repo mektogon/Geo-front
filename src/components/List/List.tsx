@@ -1,12 +1,8 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { useCallback } from "react";
 
 import { Card } from "@components";
 
-import {
-  useGetGeographiesQuery,
-  usePrefetch,
-  useSearchGeographyQuery,
-} from "../../features/geo/geo";
+import { usePrefetch } from "../../features/geo/geo";
 import { Geo } from "../../features/geo/geo.types";
 
 import styles from "./List.module.scss";
@@ -39,7 +35,7 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
   return (
     <div className={styles.list}>
       {data?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
-        <button onMouseMove={() => prefetchNext(id)}>
+        <div onMouseMove={() => prefetchNext(id)} className={styles.item}>
           <Card
             key={id}
             name={name}
@@ -48,7 +44,7 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
             photoList={photoList}
             longitude={longitude}
           />
-        </button>
+        </div>
       ))}
     </div>
   );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Button } from "@common";
+import { ROUTES } from "@utils/constants";
 import { useAppDispatch, useAppSelector } from "@utils/hooks";
 
 import { logout, reset } from "../../features/auth/authSlice";
@@ -32,18 +33,18 @@ export const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <Link to="/">
+      <Link to={ROUTES.HOME}>
         <div className={styles.logo} />
       </Link>
       <nav className={styles.nav}>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <Link to="/category" className={styles.link}>
+            <Link to={ROUTES.CATEGORY} className={styles.link}>
               Категории
             </Link>
           </li>
           <li className={styles.item}>
-            <Link to="/*" className={styles.link}>
+            <Link to={ROUTES.DESIGNATIONS} className={styles.link}>
               Обозначения
             </Link>
           </li>

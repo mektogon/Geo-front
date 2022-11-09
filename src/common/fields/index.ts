@@ -1,4 +1,4 @@
-export * from "./input/Input";
-export * from "./textarea/TextArea";
 export * from "./editable/Editable";
+export * from "./input/Input";
 export * from "./select/Select";
+export * from "./textarea/TextArea";

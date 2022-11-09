@@ -11,7 +11,7 @@ module.exports = {
 
     extend: {
       backgroundImage: {
-        cover: "var(--image-cover)",
+        logo: "var(--image-logo)",
         add: "var(--image-add)",
         find: "var(--image-find)",
         card: "var(--image-card)",
