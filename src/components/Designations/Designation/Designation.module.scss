@@ -13,3 +13,19 @@
 .img_container {
   @apply h-36 w-36;
 }
+
+.buttons {
+  @apply mx-auto  mt-5  flex items-center justify-between;
+
+  button + button {
+    @apply ml-5;
+  }
+}
+
+.update {
+  @apply bg-update h-[40px] w-[40px] cursor-pointer bg-no-repeat;
+}
+
+.delete {
+  @apply bg-delete ml-5 h-[20px] w-[20px] cursor-pointer;
+}

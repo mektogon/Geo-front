@@ -35,9 +35,12 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
   return (
     <div className={styles.list}>
       {data?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
-        <div onMouseMove={() => prefetchNext(id)} className={styles.item}>
+        <div
+          onMouseMove={() => prefetchNext(id)}
+          className={styles.item}
+          key={id}
+        >
           <Card
-            key={id}
             name={name}
             id={id}
             latitude={latitude}

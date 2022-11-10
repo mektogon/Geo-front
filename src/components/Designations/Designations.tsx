@@ -6,6 +6,7 @@ import { Designation, Search } from "@components";
 
 import {
   useGetDesignationsQuery,
+  useSearchDesignationQuery,
   useUploadDesignaionMutation,
 } from "../../features/designations/designations";
 import { IDesignation } from "../../features/designations/designations.types";
@@ -13,14 +14,18 @@ import { IDesignation } from "../../features/designations/designations.types";
 import styles from "./Designations.module.scss";
 
 export const Designations: React.FC = () => {
+  const [searchTitle, setSearchTitle] = useState("");
   const [files, setFiles] = useState("");
   const [name, setName] = useState("");
+
   const { data: designations, isLoading: isLoadingDesignations } =
     useGetDesignationsQuery([]);
+
   const [uploadDesignaion, { isLoading: isLoadingUpload }] =
     useUploadDesignaionMutation();
 
-  if (isLoadingDesignations) return <p>loading</p>;
+  const { data: dataSearch, isLoading: isLoadingSearch } =
+    useSearchDesignationQuery(searchTitle);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,15 +39,21 @@ export const Designations: React.FC = () => {
       .unwrap()
       .then((payload: any) => {
         toast.success("Succeeded", payload);
-        setName("");
-        setFiles("");
       })
       .catch(({ data }) => toast.error(data.error));
   };
 
+  const handleChange = (event: any) => {
+    setSearchTitle(event.target.value);
+  };
+
+  console.log(dataSearch, "data");
+
+  if (isLoadingDesignations) return <p>loading</p>;
+
   return (
     <div className={styles.container}>
-      <Search isActive={false} />
+      <Search isActive={false} onChange={handleChange} />
       <Button variant="text">Добавить Обозначения</Button>
       <form className={styles.add} onSubmit={onSubmit}>
         <div className={styles.field}>
@@ -62,7 +73,7 @@ export const Designations: React.FC = () => {
         </div>
       </form>
       <div className={styles.designations}>
-        {designations?.map((designation: IDesignation) => (
+        {dataSearch?.map((designation: IDesignation) => (
           <Designation {...designation} key={designation.id} />
         ))}
       </div>
