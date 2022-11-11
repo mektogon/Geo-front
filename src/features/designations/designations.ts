@@ -77,6 +77,17 @@ export const designationsApi = createApi({
       }),
       providesTags: [{ type: "designations", id: "LIST" }],
     }),
+
+    updateDesignation: build.mutation<IDesignation, Partial<IDesignation>>({
+      query: (body) => ({
+        url: `/designation`,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: (designation) => [
+        { type: "designations", id: designation?.id },
+      ],
+    }),
   }),
 });
 export const {
@@ -85,4 +96,5 @@ export const {
   useUploadDesignaionMutation,
   useDeleteDesignationMutation,
   useSearchDesignationQuery,
+  useUpdateDesignationMutation,
 } = designationsApi;

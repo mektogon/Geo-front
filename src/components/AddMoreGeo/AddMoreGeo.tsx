@@ -2,7 +2,7 @@ import { Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Button, Input, SelectField, TextArea } from "@common";
+import { Button, Input, SelectField, Spinner, TextArea } from "@common";
 import { addCardSchema } from "@utils/validation";
 
 import {
@@ -53,7 +53,7 @@ export const AddMoreGeo = () => {
   const { data: typeLocalities, isLoading: isLoadingTypeLocalities } =
     useGetTypeLocalitiesQuery([]);
 
-  if (isLoadingTypeObjects && isLoadingDesignations) return <p>loading</p>;
+  if (isLoadingTypeObjects && isLoadingDesignations) return <Spinner />;
 
   const options = typeObjects?.map((type: any) => ({
     value: type.name,
@@ -70,7 +70,7 @@ export const AddMoreGeo = () => {
     label: type.name,
   }));
 
-  if (isLoadingCreateGeo) return <p>create loading</p>;
+  if (isLoadingCreateGeo) return <Spinner />;
 
   const onSubmit = async (data: any) => {
     await createGeo(data)

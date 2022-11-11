@@ -29,6 +29,8 @@ export const Category = ({ name, id }: Ctg) => {
       {isEditing ? (
         <EditableInput
           name={name}
+          active={false}
+          column
           onUpdate={(name) =>
             updateCategory({ id, name })
               .then((result) => {

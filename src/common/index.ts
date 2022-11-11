@@ -5,3 +5,6 @@ export * from "./modal/Modal";
 export * from "./player/player";
 export * from "./tooltip/Tooltip";
 export * from "./spinner/Spinner";
+
+export * from "./icons/Delete/Delete";
+export * from "./icons/Update/Update";

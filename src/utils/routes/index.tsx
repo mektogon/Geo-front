@@ -18,6 +18,7 @@ export const AppRoutes = () => (
     <Route path={ROUTES.DESIGNATIONS} element={<DesignationsPage />} />
     <Route path={ROUTES.DETAILS} element={<DetailsPage />} />
     <Route path={ROUTES.ADD} element={<AddPage />} />
+
     <Route path="*" element={<Navigate to={ROUTES.HOME} />} />
   </Routes>
 );

@@ -5,4 +5,5 @@ export const ROUTES = {
   DESIGNATIONS: "/designations",
   DETAILS: "/details/:id",
   ADD: "/add-more",
+  EDIT: "/edit",
 };

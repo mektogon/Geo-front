@@ -5,6 +5,7 @@ import authReducer from "./auth/authSlice";
 import { categoriesApi } from "./categories/categories";
 import { designationsApi } from "./designations/designations";
 import { geoApi } from "./geo/geo";
+import { photoApi } from "./photo/photo";
 
 export const store = configureStore({
   reducer: {
@@ -12,13 +13,15 @@ export const store = configureStore({
     [geoApi.reducerPath]: geoApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [designationsApi.reducerPath]: designationsApi.reducer,
+    [photoApi.reducerPath]: photoApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       geoApi.middleware,
       categoriesApi.middleware,
-      designationsApi.middleware
+      designationsApi.middleware,
+      photoApi.middleware
     ),
 });
 

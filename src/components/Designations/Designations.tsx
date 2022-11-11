@@ -61,9 +61,10 @@ export const Designations: React.FC = () => {
           />
           <Input
             type="file"
-            multiple
             onChange={(e: any) => setFiles(e.target.files[0])}
           />
+
+          <img src={files} alt="" />
 
           <Button variant="outlined" loading={isLoadingUpload}>
             Сохранить
