@@ -4,3 +4,4 @@ export * from "./fields";
 export * from "./modal/Modal";
 export * from "./player/player";
 export * from "./tooltip/Tooltip";
+export * from "./spinner/Spinner";

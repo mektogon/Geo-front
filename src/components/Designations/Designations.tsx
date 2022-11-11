@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-import { Button, Dropzone, Input } from "@common";
+import { Button, Dropzone, Input, Spinner } from "@common";
 import { Designation, Search } from "@components";
 
 import {
@@ -47,9 +47,7 @@ export const Designations: React.FC = () => {
     setSearchTitle(event.target.value);
   };
 
-  console.log(dataSearch, "data");
-
-  if (isLoadingDesignations) return <p>loading</p>;
+  if (isLoadingDesignations) return <Spinner />;
 
   return (
     <div className={styles.container}>

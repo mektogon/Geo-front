@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { toast } from "react-toastify";
 
-import { Button, Input } from "@common";
+import { Button, Input, Spinner } from "@common";
 import { Category } from "@components";
 
 import {
@@ -30,6 +30,7 @@ export const Categories: React.FC = () => {
       .catch((error: any) => toast.error(error.data));
   };
 
+  if (isLoadingCategories) return <Spinner />;
   return (
     <div className={styles.categories_inner}>
       <div>

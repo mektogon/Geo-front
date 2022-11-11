@@ -6,6 +6,7 @@ import { usePrefetch } from "../../features/geo/geo";
 import { Geo } from "../../features/geo/geo.types";
 
 import styles from "./List.module.scss";
+import { Spinner } from "@common";
 
 type Item = {
   id?: number;
@@ -22,7 +23,6 @@ interface ListProps {
 }
 
 export const List: React.FC<ListProps> = ({ data, isLoading }) => {
-  if (isLoading) return <p>loading</p>;
   const prefetchPage = usePrefetch("getGeography");
 
   const prefetchNext = useCallback(
@@ -32,6 +32,7 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
     [prefetchPage]
   );
 
+  if (isLoading) return <Spinner />;
   return (
     <div className={styles.list}>
       {data?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
