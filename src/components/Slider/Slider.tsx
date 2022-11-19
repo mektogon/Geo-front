@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import styles from "./Slider.module.scss";
+import { ItemsGrid } from "@common";
 
 export const Slider = ({ items }: any) => (
   <Swiper
@@ -19,7 +20,7 @@ export const Slider = ({ items }: any) => (
     {items.map((item: string) => (
       <SwiperSlide key={item}>
         <div className={styles.img}>
-          <img src={item} alt={item} />
+          <ItemsGrid data={item} />
         </div>
       </SwiperSlide>
     ))}

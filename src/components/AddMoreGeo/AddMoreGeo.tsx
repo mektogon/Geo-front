@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Button, Input, SelectField, Spinner, TextArea } from "@common";
+import { UploadComponent } from "@common/upload/Upload";
 import { addCardSchema } from "@utils/validation";
 
 import {
@@ -29,19 +30,20 @@ const geo = {
   longitude: "",
   note: "",
   description: "",
-
-  addressDto: {
-    region: "",
-    typeLocality: "",
-    locality: "",
-    street: "",
-    district: "",
-    houseNumber: "",
-  },
+  photo: [],
+  audio: [],
+  video: [],
+  region: "",
+  typeLocality: "",
+  locality: "",
+  street: "",
+  district: "",
+  houseNumber: "",
 };
 
 export const AddMoreGeo = () => {
   const navigate = useNavigate();
+
   const [createGeo, { isLoading: isLoadingCreateGeo }] = useCreateGeoMutation();
 
   const { data: typeObjects, isLoading: isLoadingTypeObjects } =
@@ -72,24 +74,55 @@ export const AddMoreGeo = () => {
 
   if (isLoadingCreateGeo) return <Spinner />;
 
-  const onSubmit = async (data: any) => {
-    await createGeo(data)
-      .unwrap()
-      .then((payload: any) => {
-        toast.success("Succeeded", payload);
-        navigate("/");
-      })
-      .catch((data) => toast.error(data.status));
-  };
-
   return (
     <div className={styles.add}>
       <Formik
         initialValues={geo}
         validationSchema={addCardSchema}
-        onSubmit={(values) => onSubmit(values)}
+        onSubmit={async (values) => {
+          const data: any = new FormData();
+
+          for (let i = 0; i < values.photo.length; i++) {
+            data.append("photo", values.photo[i]);
+          }
+
+          data.append("name", values.name);
+          data.append("audio", values.audio[0]);
+          data.append("video", values.video[0]);
+
+          data.append("type", values.type);
+          data.append("designation", values.designation);
+          data.append("latitude", values.latitude);
+          data.append("longitude", values.longitude);
+          data.append("note", values.note);
+          data.append("description", values.description);
+
+          data.append("region", values.region);
+          data.append("typeLocality", values.typeLocality);
+
+          data.append("locality", values.locality);
+          data.append("street", values.street);
+          data.append("district", values.district);
+          data.append("houseNumber", values.houseNumber);
+
+          await createGeo(data)
+            .unwrap()
+            .then((payload: any) => {
+              toast.success("Succeeded", payload);
+              navigate("/");
+            })
+            .catch((data) => toast.error(data.status));
+        }}
       >
-        {({ values, handleChange, errors, handleBlur, dirty, isValid }) => (
+        {({
+          values,
+          handleChange,
+          errors,
+          handleBlur,
+          isValid,
+          dirty,
+          setFieldValue,
+        }) => (
           <Form>
             <div className={styles.inputs}>
               <Input
@@ -102,6 +135,44 @@ export const AddMoreGeo = () => {
                 error={errors.name}
               />
 
+              <UploadComponent
+                setFieldValue={setFieldValue}
+                name="photo"
+                placeholder="Фото"
+                maxFiles={5}
+                extension="'jpeg', 'png'"
+              />
+              {values.photo &&
+                values.photo.map(({ name }, i): any => (
+                  <li key={i}>{`File: ${name}`}</li>
+                ))}
+
+              <UploadComponent
+                setFieldValue={setFieldValue}
+                name="audio"
+                maxFiles={1}
+                placeholder="Аудио"
+                extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
+              />
+
+              {values.audio &&
+                values.audio.map(({ name }, i): any => (
+                  <li key={i}>{`File:${name}`}</li>
+                ))}
+
+              <UploadComponent
+                setFieldValue={setFieldValue}
+                name="video"
+                maxFiles={1}
+                placeholder="Видео"
+                extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
+              />
+
+              {values.video &&
+                values.video.map(({ name }, i): any => (
+                  <li key={i}>{`File:${name}`}</li>
+                ))}
+
               <Field
                 name="type"
                 component={SelectField}
@@ -110,7 +181,6 @@ export const AddMoreGeo = () => {
                 styles={customStyles}
                 error={errors.type}
               />
-
               <Field
                 placeholder="Обозначение"
                 name="designation"
@@ -119,7 +189,6 @@ export const AddMoreGeo = () => {
                 styles={customStyles}
                 error={errors.designation}
               />
-
               <Input
                 placeholder="Широта"
                 type="text"
@@ -129,7 +198,6 @@ export const AddMoreGeo = () => {
                 value={values.latitude}
                 error={errors.latitude}
               />
-
               <Input
                 placeholder="Долгота"
                 type="text"
@@ -139,7 +207,6 @@ export const AddMoreGeo = () => {
                 value={values.longitude}
                 error={errors.longitude}
               />
-
               <Input
                 placeholder="Заметка"
                 type="text"
@@ -149,67 +216,60 @@ export const AddMoreGeo = () => {
                 value={values.note}
                 error={errors.note}
               />
-
               <Input
                 placeholder="Регион"
                 type="text"
-                name="addressDto.region"
+                name="region"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.addressDto.region}
-                error={errors.addressDto?.region}
+                value={values.region}
+                error={errors?.region}
               />
-
               <Field
-                name="addressDto.typeLocality"
+                name="typeLocality"
                 placeholder="Тип Местности"
                 component={SelectField}
                 options={options3}
                 onBlur={handleBlur}
                 styles={customStyles}
-                error={errors.addressDto?.typeLocality}
+                error={errors?.typeLocality}
               />
-
               <Input
                 placeholder="Местность"
                 type="text"
-                name="addressDto.locality"
+                name="locality"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.addressDto.locality}
-                error={errors.addressDto?.locality}
+                value={values.locality}
+                error={errors?.locality}
               />
-
               <Input
                 placeholder="Улица"
                 type="text"
-                name="addressDto.street"
+                name="street"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.addressDto.street}
-                error={errors.addressDto?.street}
+                value={values.street}
+                error={errors?.street}
               />
-
               <Input
                 placeholder="Район"
                 type="text"
-                name="addressDto.district"
+                name="district"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.addressDto.district}
-                error={errors.addressDto?.district}
+                value={values.district}
+                error={errors?.district}
               />
-
               <Input
                 placeholder="Дом"
                 type="text"
-                name="addressDto.houseNumber"
+                name="houseNumber"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.addressDto.houseNumber}
-                error={errors.addressDto?.houseNumber}
+                value={values.houseNumber}
+                error={errors?.houseNumber}
               />
-
               <TextArea
                 placeholder="Описание"
                 name="description"

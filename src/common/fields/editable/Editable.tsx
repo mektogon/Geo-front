@@ -1,9 +1,9 @@
+import classNames from "classnames";
 import React from "react";
 
-import { Button, Input, DeleteIcon } from "@common";
+import { Button, DeleteIcon,Input } from "@common";
 
 import styles from "./Editable.module.scss";
-import classNames from "classnames";
 
 export const EditableInput = ({
   name: initialName,

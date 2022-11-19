@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { baseUrl } from "../../utils/api/instance";
+import { Search } from "../geo/geo.types";
 import type { RootState } from "../store";
 
 import { IDesignation, TDesignations } from "./designations.types";
-import { Search } from "../geo/geo.types";
 
 export const designationsApi = createApi({
   reducerPath: "designationsApi",

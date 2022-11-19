@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../utils/api/instance";
 import type { RootState } from "../store";
 
-import { Geo, Search } from "./geo.types";
+import { Geo, Search, TGeo } from "./geo.types";
 
 export const geoApi = createApi({
   reducerPath: "geoApi",
@@ -29,6 +29,17 @@ export const geoApi = createApi({
         method: "GET",
       }),
       providesTags: ["geo"],
+    }),
+
+    updateGeo: build.mutation<Geo, Partial<TGeo>>({
+      query(body) {
+        return {
+          url: `geo/update`,
+          method: "PATCH",
+          body,
+        };
+      },
+      invalidatesTags: (geo) => [{ type: "geo", id: geo?.id }],
     }),
 
     searchGeography: build.query<Search[], string>({
@@ -57,7 +68,7 @@ export const geoApi = createApi({
 
     createGeo: build.mutation<Geo, Geo>({
       query: (body) => ({
-        url: `geo`,
+        url: `geo/save`,
         method: "POST",
         body,
       }),
@@ -93,6 +104,7 @@ export const {
   useGetGeographiesQuery,
   useSearchGeographyQuery,
   useGetGeographyQuery,
+  useUpdateGeoMutation,
   useCreateGeoMutation,
   useGetTypesQuery,
   useGetDesignationsQuery,

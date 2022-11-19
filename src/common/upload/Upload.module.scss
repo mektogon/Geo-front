@@ -5,7 +5,3 @@
 .error {
   @apply p-1 text-sm font-normal text-red-400;
 }
-
-.input_error {
-  @apply rounded-[4px] bg-red-100 ring-2 ring-red-300;
-}

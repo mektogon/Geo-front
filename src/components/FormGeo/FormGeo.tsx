@@ -2,12 +2,17 @@ import { Form, Formik } from "formik";
 
 import { Button, Input, TextArea } from "@common";
 
-import { useCreateGeoMutation } from "../../features/geo/geo";
+import {
+  useCreateGeoMutation,
+  useUpdateGeoMutation,
+} from "../../features/geo/geo";
 
 import styles from "./FormGeo.module.scss";
 
 export const FormGeo = ({ geo }: any) => {
-  const [createGeo, { isLoading: isLoadingCreateGeo }] = useCreateGeoMutation();
+  const [updateGeo, { isLoading: isUpdating }] = useUpdateGeoMutation();
+
+  console.log(geo, "geo");
 
   return (
     <div className={styles.form}>
@@ -15,17 +20,26 @@ export const FormGeo = ({ geo }: any) => {
         initialValues={{
           description: geo.description,
           note: geo.note,
-          region: "",
+          region: geo?.addressDto.region,
           type: geo.type,
-          terrain: "",
-          street: "",
-          district: "",
-          home: "",
+          locality: geo?.addressDto.locality,
+          street: geo?.addressDto.street,
+          district: geo?.addressDto.district,
+          houseNumber: geo?.addressDto.houseNumber,
         }}
         onSubmit={(values) => console.log(values)}
       >
         {({ values, handleChange, handleBlur }) => (
-          <Form className={styles.sign_in_form}>
+          <Form
+            className={styles.sign_in_form}
+            onSubmit={async (values) =>
+              updateGeo(values)
+                .then((result) => {
+                  console.log("Update Result", result);
+                })
+                .catch((error) => console.error("Update Error", error))
+            }
+          >
             <TextArea
               placeholder="Описание"
               name="description"
@@ -67,7 +81,7 @@ export const FormGeo = ({ geo }: any) => {
               placeholder="Местность"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.terrain}
+              value={values.locality}
             />
 
             <Input
@@ -94,7 +108,7 @@ export const FormGeo = ({ geo }: any) => {
               placeholder="Дом"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.home}
+              value={values.houseNumber}
             />
 
             <Button type="submit" variant="outlined">

@@ -14,8 +14,8 @@ import {
   useDeleteDesignationMutation,
   useUpdateDesignationMutation,
 } from "../../../features/designations/designations";
-import { useDeletePhotoMutation } from "../../../features/photo/photo";
 import { IDesignation } from "../../../features/designations/designations.types";
+import { useDeletePhotoMutation } from "../../../features/photo/photo";
 
 import styles from "./Designation.module.scss";
 

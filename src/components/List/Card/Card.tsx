@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 
-import { Button, Tooltip } from "@common";
+import { Button, ItemsGrid, Tooltip } from "@common";
 
 import { useDeleteGeoMutation } from "../../../features/geo/geo";
 import { Geo } from "../../../features/geo/geo.types";
@@ -26,7 +26,7 @@ export const Card: React.FC<Geo> = ({ ...props }) => {
       {!isLoadingDeleteGeo ? (
         <div className={styles.card_inner}>
           <div className={styles.top}>
-            <img src={props.photoList![0]} alt="" />
+            <ItemsGrid data={props.photoList![0]} />
           </div>
           <div className={styles.bot}>
             <div className={styles.left}>

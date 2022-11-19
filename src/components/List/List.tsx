@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 
+import { Spinner } from "@common";
 import { Card } from "@components";
 
 import { usePrefetch } from "../../features/geo/geo";
 import { Geo } from "../../features/geo/geo.types";
 
 import styles from "./List.module.scss";
-import { Spinner } from "@common";
 
 type Item = {
   id?: number;

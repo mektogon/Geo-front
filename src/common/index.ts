@@ -1,10 +1,11 @@
 export * from "./buttons/Button/Button";
 export * from "./dropzone/Dropzone";
 export * from "./fields";
-export * from "./modal/Modal";
-export * from "./player/player";
-export * from "./tooltip/Tooltip";
-export * from "./spinner/Spinner";
-
+export * from "./grid/Grid";
 export * from "./icons/Delete/Delete";
 export * from "./icons/Update/Update";
+export * from "./image/Image";
+export * from "./modal/Modal";
+export * from "./player/player";
+export * from "./spinner/Spinner";
+export * from "./tooltip/Tooltip";

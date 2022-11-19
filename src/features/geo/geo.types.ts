@@ -33,3 +33,5 @@ export interface Geo {
   videoList?: string[];
   audioList?: string[];
 }
+
+export type TGeo = Geo[];

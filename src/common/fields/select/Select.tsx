@@ -20,6 +20,13 @@ interface SelectProps extends React.ComponentPropsWithRef<"select"> {
   onBlur?: FocusEventHandler<HTMLSelectElement | HTMLInputElement>;
 }
 
+const customStyles = {
+  control: (base: any) => ({
+    ...base,
+    backgroundColor: "rgb(203 213 225)",
+  }),
+};
+
 export const SelectField: React.FC<SelectProps> = ({
   field,
   form,
@@ -53,7 +60,7 @@ export const SelectField: React.FC<SelectProps> = ({
       <span className={styles.error}>{error}</span>
       <Select
         name={field.name}
-        styles={styles}
+        styles={customStyles}
         className={classnames(styles.select, { [styles.input_error]: !!error })}
         value={getValue()}
         onBlur={onBlur}
