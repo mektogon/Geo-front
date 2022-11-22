@@ -1,3 +1,11 @@
 .img img {
-  @apply max-h-96 w-full object-cover;
+  @apply relative max-h-96 w-full object-cover;
+}
+
+.icon {
+  button {
+    @apply cursor-pointer;
+  }
+
+  @apply absolute top-0 right-0 z-50 cursor-pointer;
 }

@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSearchParams } from "react-router-dom";
 
+import { Spinner } from "@common";
 import { List, Search } from "@components";
 
-import { useSearchGeographyQuery } from "../../features/geo/geo";
+import { useGetGeographiesQuery } from "../../features/geo/geo";
 
 export const HomePage: React.FC = () => {
-  const [searchTitle, setSearchTitle] = useState("");
-  const { data, isLoading } = useSearchGeographyQuery(searchTitle);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleChange = (event: any) => {
-    setSearchTitle(event.target.value);
+  const searchTerm = searchParams.get("name") || "";
+
+  const { data, isLoading } = useGetGeographiesQuery({});
+
+  if (isLoading) return <Spinner />;
+
+  const handleSearch = (event: any) => {
+    const name = event.target.value;
+
+    if (name) {
+      setSearchParams({ name });
+    } else {
+      setSearchParams({});
+    }
   };
+
   return (
-    <>
-      <Search onChange={handleChange} isActive />
-      <List data={data} isLoading={isLoading} />
-    </>
+    <div>
+      <Search isActive onChange={handleSearch} />
+      <List data={data} isLoading={isLoading} searchTerm={searchTerm} />
+    </div>
   );
 };

@@ -53,11 +53,12 @@ interface UploadProps {
   placeholder: string;
   extension: string;
   maxFiles: number;
+  size?: string;
   error?: string | null;
 }
 
 export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
-  const { setFieldValue, name, placeholder, extension, maxFiles, error } =
+  const { setFieldValue, name, placeholder, extension, maxFiles, error, size } =
     props;
   const {
     getRootProps,
@@ -74,9 +75,16 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     },
   });
 
+  const sizeStyles = {
+    height: size,
+  };
+
+  console.log(size, "size");
+
   const style = useMemo(
     () => ({
       ...baseStyle,
+      ...(size ? sizeStyles : {}),
       ...(isFocused ? focusedStyle : {}),
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {}),
@@ -85,18 +93,18 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     [isFocused, isDragAccept, isDragReject]
   );
 
-  console.log(error, "errorupload");
-
   return (
     <div>
       <span className={styles.label}>{placeholder}</span>
       <span className={styles.error}>{error}</span>
-      <div {...getRootProps({ style })}>
+      <div {...getRootProps({ style })} className={styles.block}>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the files here ...</p>
+          <p className={styles.text}>Drop the files here ...</p>
         ) : (
-          <p>Drag drop some files here, or click to select files {extension}</p>
+          <p className={styles.text}>
+            Drag drop some files here, or click to select files {extension}
+          </p>
         )}
       </div>
     </div>

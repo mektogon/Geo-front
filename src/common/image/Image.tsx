@@ -6,12 +6,13 @@ import { useOnScreen } from "@utils/hooks";
 import styles from "./Image.module.scss";
 
 export interface ILoadableImage {
-  src: string;
+  src?: string;
   alt?: string | undefined;
+  style?: string;
   onLoad?(): void;
 }
 export const LoadableImage = (props: ILoadableImage) => {
-  const { src, alt = "", onLoad = () => {} } = props;
+  const { src, alt = "", onLoad = () => {}, style } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
@@ -40,7 +41,7 @@ export const LoadableImage = (props: ILoadableImage) => {
       {(isVisible || isLoaded) && (
         <img
           ref={imageRef}
-          className={cn(styles.image, {
+          className={cn(style, styles.image, {
             [styles.image_loaded]: isLoaded,
           })}
           src={src}

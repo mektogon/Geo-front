@@ -140,6 +140,7 @@ export const AddMoreGeo = () => {
                 name="photo"
                 placeholder="Фото"
                 maxFiles={5}
+                size="70px"
                 extension="'jpeg', 'png'"
               />
               {values.photo &&
@@ -152,6 +153,7 @@ export const AddMoreGeo = () => {
                 name="audio"
                 maxFiles={1}
                 placeholder="Аудио"
+                size="70px"
                 extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
               />
 
@@ -164,6 +166,7 @@ export const AddMoreGeo = () => {
                 setFieldValue={setFieldValue}
                 name="video"
                 maxFiles={1}
+                size="70px"
                 placeholder="Видео"
                 extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
               />

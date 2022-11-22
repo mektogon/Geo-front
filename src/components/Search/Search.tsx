@@ -16,7 +16,7 @@ export const Search: React.FC<SearchProps> = ({ onChange, isActive }) => (
   <div className={styles.search_block}>
     <input
       className={styles.search}
-      type="text"
+      type="search"
       onChange={onChange}
       placeholder="Введите название географического объекта"
     />

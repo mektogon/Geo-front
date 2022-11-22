@@ -13,7 +13,11 @@ import { Ctg } from "../../features/categories/categories.types";
 
 import styles from "./Categories.module.scss";
 
-export const Categories: React.FC = () => {
+interface CategoryProps {
+  searchTerm?: string | null | undefined;
+}
+
+export const Categories: React.FC<CategoryProps> = ({ searchTerm }) => {
   const { data: categories, isLoading: isLoadingCategories } =
     useGetCategoriesQuery([]);
 
@@ -31,6 +35,7 @@ export const Categories: React.FC = () => {
   };
 
   if (isLoadingCategories) return <Spinner />;
+
   return (
     <div className={styles.categories_inner}>
       <div>
@@ -66,9 +71,13 @@ export const Categories: React.FC = () => {
       </div>
 
       <div className={styles.categories}>
-        {categories?.map((category: Ctg) => (
-          <Category {...category} key={category.id} />
-        ))}
+        {categories
+          ?.filter(({ name }: any) =>
+            name.toLowerCase().includes(searchTerm!.toLowerCase())
+          )
+          .map((category: Ctg) => (
+            <Category {...category} key={category.id} />
+          ))}
       </div>
     </div>
   );

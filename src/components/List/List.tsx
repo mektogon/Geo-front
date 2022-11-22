@@ -1,4 +1,5 @@
-import { useCallback } from "react";
+import { ChangeEvent, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Spinner } from "@common";
 import { Card } from "@components";
@@ -20,9 +21,10 @@ type Item = {
 interface ListProps {
   data: Item[] | undefined;
   isLoading: boolean;
+  searchTerm?: string | null | undefined;
 }
 
-export const List: React.FC<ListProps> = ({ data, isLoading }) => {
+export const List: React.FC<ListProps> = ({ data, isLoading, searchTerm }) => {
   const prefetchPage = usePrefetch("getGeography");
 
   const prefetchNext = useCallback(
@@ -33,23 +35,28 @@ export const List: React.FC<ListProps> = ({ data, isLoading }) => {
   );
 
   if (isLoading) return <Spinner />;
+
   return (
     <div className={styles.list}>
-      {data?.map(({ name, id, latitude, longitude, photoList }: Geo) => (
-        <div
-          onMouseMove={() => prefetchNext(id)}
-          className={styles.item}
-          key={id}
-        >
-          <Card
-            name={name}
-            id={id}
-            latitude={latitude}
-            photoList={photoList}
-            longitude={longitude}
-          />
-        </div>
-      ))}
+      {data
+        ?.filter(({ name }: any) =>
+          name.toLowerCase().includes(searchTerm!.toLowerCase())
+        )
+        .map(({ name, id, latitude, longitude, photoList }: Geo) => (
+          <div
+            onMouseMove={() => prefetchNext(id)}
+            className={styles.item}
+            key={id}
+          >
+            <Card
+              name={name}
+              id={id}
+              latitude={latitude}
+              photoList={photoList}
+              longitude={longitude}
+            />
+          </div>
+        ))}
     </div>
   );
 };

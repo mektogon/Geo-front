@@ -33,7 +33,7 @@ export const Category = ({ name, id }: Ctg) => {
           column
           onUpdate={(name) =>
             updateCategory({ id, name })
-              .then((result) => {
+              .then((result: any) => {
                 setIsEditing(false);
               })
               .catch((error) => console.error("Update Error", error))

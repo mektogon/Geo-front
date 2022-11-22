@@ -11,6 +11,7 @@ import App from "./App";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/css/globals.scss";
+// import "~video-react/dist/video-react.css";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);

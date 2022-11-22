@@ -5,6 +5,10 @@
   @apply duration-200 hover:shadow-2xl;
 }
 
+.info {
+  @apply flex flex-col  items-center px-2 py-0;
+}
+
 .title {
   @apply font-mono text-2xl font-bold;
 }
@@ -18,15 +22,14 @@
 }
 
 .detail {
-  @apply flex w-full;
 }
 
 .img {
-  @apply w-1/2;
+  @apply w-full;
 }
 
 .actions {
-  @apply flex items-center justify-evenly py-5;
+  @apply flex w-1/2 items-center justify-evenly py-5;
 }
 
 .designation {
@@ -39,4 +42,57 @@
   p {
     @apply font-mono text-sm font-bold;
   }
+}
+
+.items {
+  @apply flex w-full flex-col justify-center;
+}
+
+.item {
+  @apply flex items-center justify-between;
+}
+
+.label {
+  @apply mr-5 w-24;
+}
+
+.text {
+  @apply mx-auto  mt-5   ml-5  flex w-full rounded-2xl p-5 shadow-2xl;
+  @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
+}
+
+.image {
+  @apply mb-3 h-24 w-24;
+}
+
+.form {
+  @apply flex;
+}
+
+.block {
+  @apply mb-32 flex;
+}
+
+.right {
+  @apply mb-5 w-full w-1/2;
+
+  button {
+    @apply mx-auto my-3 w-24;
+  }
+}
+
+.geo {
+  @apply flex w-full gap-4;
+}
+
+.geo_designation {
+  @apply flex w-1/2 flex-col;
+}
+
+.type_object {
+  @apply flex w-1/2 flex-col;
+}
+
+.left {
+  @apply w-1/2 px-2 pb-4 pt-0;
 }
