@@ -1,9 +1,11 @@
 import { Field, Form, Formik } from "formik";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Button, Input, SelectField, Spinner, TextArea } from "@common";
 import { UploadComponent } from "@common/upload/Upload";
+import { Switch } from "@headlessui/react";
 import { addCardSchema } from "@utils/validation";
 
 import {
@@ -30,6 +32,7 @@ const geo = {
   longitude: "",
   note: "",
   description: "",
+  isPlaying: false,
   photo: [],
   audio: [],
   video: [],
@@ -73,12 +76,13 @@ export const AddMoreGeo = () => {
   }));
 
   if (isLoadingCreateGeo) return <Spinner />;
+  const toggleClass = " transform translate-x-5 text-transparent";
 
   return (
     <div className={styles.add}>
       <Formik
         initialValues={geo}
-        validationSchema={addCardSchema}
+        // validationSchema={addCardSchema}
         onSubmit={async (values) => {
           const data: any = new FormData();
 
@@ -96,6 +100,8 @@ export const AddMoreGeo = () => {
           data.append("longitude", values.longitude);
           data.append("note", values.note);
           data.append("description", values.description);
+
+          data.append("isPlaying", values.isPlaying);
 
           data.append("region", values.region);
           data.append("typeLocality", values.typeLocality);
@@ -125,6 +131,25 @@ export const AddMoreGeo = () => {
         }) => (
           <Form>
             <div className={styles.inputs}>
+              <div className={styles.toggle_bg}>
+                <div className={styles.label}>Проигрывать аудио сразу?</div>
+                <div className={styles.toggle}>
+                  <Switch
+                    checked={values.isPlaying}
+                    onChange={(value) => setFieldValue("isPlaying", value)}
+                    name="isPlaying"
+                    className={`${
+                      values.isPlaying ? "bg-blue-600" : "bg-gray-200"
+                    } relative inline-flex h-6 w-11 items-center rounded-full`}
+                  >
+                    <span
+                      className={`${
+                        values.isPlaying ? "translate-x-6" : "translate-x-1"
+                      } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                    />
+                  </Switch>
+                </div>
+              </div>
               <Input
                 placeholder="Название"
                 type="text"

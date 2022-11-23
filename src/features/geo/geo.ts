@@ -25,7 +25,7 @@ export const geoApi = createApi({
   endpoints: (build) => ({
     getGeographies: build.query<any, Geo>({
       query: () => ({
-        url: "/geo",
+        url: "/geo/web",
         method: "GET",
       }),
       providesTags: ["geo"],
@@ -54,7 +54,7 @@ export const geoApi = createApi({
     }),
 
     getGeography: build.query<Geo, number>({
-      query: (id) => `geo/getById/${id}`,
+      query: (id) => `geo/web/${id}`,
       providesTags: (_geo, _err, id) => [{ type: "geo", id }],
     }),
 

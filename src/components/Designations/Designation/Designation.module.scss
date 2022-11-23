@@ -11,7 +11,7 @@
 }
 
 .img_container {
-  @apply h-36 w-36;
+  @apply flex h-36 w-36 flex-row items-center;
 }
 
 .buttons {

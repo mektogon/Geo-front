@@ -1,3 +1,4 @@
+import { Form, Formik } from "formik";
 import React from "react";
 import { toast } from "react-toastify";
 
@@ -6,9 +7,11 @@ import {
   DeleteIcon,
   EditableInput,
   Input,
+  Modal,
   Tooltip,
   UpdateIcon,
 } from "@common";
+import { UploadComponent } from "@common/upload/Upload";
 
 import {
   useDeleteDesignationMutation,
@@ -25,9 +28,6 @@ export const Designation = ({ name, url, id }: IDesignation) => {
   const [deleteDesignation, { isLoading: isDeletingDesignation }] =
     useDeleteDesignationMutation();
 
-  const [deletePhoto, { isLoading: isDeletingPhoto }] =
-    useDeletePhotoMutation();
-
   const [updateDesignation, { isLoading: isUpdatingDesignation }] =
     useUpdateDesignationMutation();
 
@@ -40,32 +40,76 @@ export const Designation = ({ name, url, id }: IDesignation) => {
       .catch(({ data }) => toast.error(data.error));
   };
 
-  const deleteHandlerPhoto = async (id: any | undefined) => {
-    await deletePhoto(id!)
-      .unwrap()
-      .then((payload: any) => {
-        toast.success("Deleted", payload);
-      })
-      .catch(({ data }) => toast.error(data.error));
+  const updateHandler = () => {
+    setIsEditing(true);
   };
 
   return (
     <div className={styles.designation}>
       {isEditing ? (
-        <EditableInput
-          name={name}
-          url={url}
-          onDelete={() => deleteHandlerPhoto(id)}
-          active
-          onUpdate={(name) =>
-            updateDesignation({ id, name })
-              .then((result) => {
-                setIsEditing(false);
+        <Formik
+          initialValues={{
+            name,
+            id,
+            url,
+          }}
+          onSubmit={async (values) => {
+            const data: any = new FormData();
+
+            data.append("id", values.id);
+            data.append("name", values.name);
+            data.append("designation", values.url[0]);
+
+            await updateDesignation(data)
+              .unwrap()
+              .then((payload: any) => {
+                toast.success("Succeeded", payload);
+                setIsEditing(!isEditing);
               })
-              .catch((error) => console.error("Update Error", error))
-          }
-          onCancel={() => setIsEditing(false)}
-        />
+              .catch((data: any) => toast.error(data.status));
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            setFieldValue,
+          }) => (
+            <Form>
+              <UploadComponent
+                setFieldValue={setFieldValue}
+                name="url"
+                placeholder="Фото"
+                size="100px"
+                maxFiles={1}
+                extension="'jpeg', 'png'"
+              />
+
+              {values.url[0].name}
+              <Input
+                placeholder="Name"
+                type="text"
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+              />
+
+              <Button type="submit" variant="outlined">
+                Save
+              </Button>
+              <Button
+                type="submit"
+                variant="outlined"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                Cancel
+              </Button>
+            </Form>
+          )}
+        </Formik>
       ) : (
         <div>
           <Tooltip behavior="hover" content={name} placement="top">
@@ -76,7 +120,7 @@ export const Designation = ({ name, url, id }: IDesignation) => {
           <h2 className={styles.name}>{name}</h2>
 
           <div className={styles.buttons}>
-            <Button variant="text" onClick={() => setIsEditing(true)}>
+            <Button variant="text" onClick={updateHandler}>
               <UpdateIcon />
             </Button>
 

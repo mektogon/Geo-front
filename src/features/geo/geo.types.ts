@@ -19,6 +19,11 @@ export interface Search {
   id: number;
 }
 
+export interface Photo {
+  id: number;
+  url: string;
+}
+
 export interface Geo {
   id?: number;
   name?: string;
@@ -29,7 +34,7 @@ export interface Geo {
   note?: string;
   designation?: string;
   addressDto?: AddressDto;
-  photoList?: string[];
+  photoList?: Photo[];
   videoList?: string[];
   audioList?: string[];
 }

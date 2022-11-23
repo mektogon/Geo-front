@@ -1,7 +1,7 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Categories, Search } from "@components";
-import { useSearchParams } from "react-router-dom";
 
 export const CategoryPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

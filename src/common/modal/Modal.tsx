@@ -1,15 +1,19 @@
-import { Button } from "@common";
+// import React from "react";
 
-import styles from "./Modal.module.scss";
+// import "./Modal.scss";
 
-export const Modal = ({ onLogout }: any) => (
-  <div className={styles.modal}>
-    <div className={styles.inner}>
-      <div className={styles.card}>
-        <Button variant="text" onClick={onLogout}>
-          Yes
-        </Button>
-      </div>
-    </div>
-  </div>
-);
+// export const Modal = ({ children, active, setActive }) => {
+//   return (
+//     <div
+//       className={active ? "modal active" : "modal"}
+//       onClick={() => setActive(false)}
+//     >
+//       <div
+//         className={active ? "modal__content active" : "modal__content"}
+//         onClick={(e) => e.stopPropagation()}
+//       >
+//         {children}
+//       </div>
+//     </div>
+//   );
+// };

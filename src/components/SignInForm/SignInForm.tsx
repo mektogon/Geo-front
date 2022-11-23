@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Button, Input } from "@common";
+import { Button, Input, Spinner } from "@common";
 import { useAppDispatch, useAppSelector } from "@utils/hooks";
 import { loginSchema } from "@utils/validation";
 
@@ -41,7 +41,7 @@ export const SignInForm = () => {
     }
   }, [username, isError, isSuccess, navigate, dispatch]);
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.auth}>

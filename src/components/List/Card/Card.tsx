@@ -26,7 +26,7 @@ export const Card: React.FC<Geo> = ({ ...props }) => {
       {!isLoadingDeleteGeo ? (
         <div className={styles.card_inner}>
           <div className={styles.top}>
-            <ItemsGrid data={props.photoList![0]} />
+            <ItemsGrid data={props.photoList![0]?.url} />
           </div>
           <div className={styles.bot}>
             <div className={styles.left}>

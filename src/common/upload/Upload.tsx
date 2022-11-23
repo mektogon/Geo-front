@@ -47,6 +47,37 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
+const thumbsContainer = {
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  marginTop: 16,
+};
+
+const thumb = {
+  display: "inline-flex",
+  borderRadius: 2,
+  border: "1px solid #eaeaea",
+  marginBottom: 8,
+  marginRight: 8,
+  width: 100,
+  height: 100,
+  padding: 4,
+  boxSizing: "border-box",
+};
+
+const thumbInner = {
+  display: "flex",
+  minWidth: 0,
+  overflow: "hidden",
+};
+
+const img = {
+  display: "block",
+  width: "auto",
+  height: "100%",
+};
+
 interface UploadProps {
   setFieldValue: any;
   name: string;
@@ -67,6 +98,8 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     isFocused,
     isDragAccept,
     isDragReject,
+    inputRef,
+    acceptedFiles,
   } = useDropzone({
     accept: {},
     maxFiles,
@@ -79,8 +112,6 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     height: size,
   };
 
-  console.log(size, "size");
-
   const style = useMemo(
     () => ({
       ...baseStyle,
@@ -92,6 +123,34 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     }),
     [isFocused, isDragAccept, isDragReject]
   );
+
+  const removeFile = (file) => () => {
+    acceptedFiles.splice(acceptedFiles.indexOf(file), 1);
+  };
+
+  const removeAll = () => {
+    acceptedFiles.length = 0;
+    acceptedFiles.splice(0, acceptedFiles.length);
+    inputRef.current.value = "";
+  };
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes{" "}
+      <div
+        onClick={removeFile(file)}
+        role="button"
+        tabIndex={0}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") removeFile(file);
+        }}
+      >
+        &times;
+      </div>
+    </li>
+  ));
+
+  console.log(acceptedFiles, "acceptedFiles");
 
   return (
     <div>

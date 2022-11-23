@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@emotion/core": "^11.0.0",
+    "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.12",
     "@reduxjs/toolkit": "^1.8.6",
     "@types/lodash.debounce": "^4.0.7",
@@ -31,6 +32,7 @@
     "react-spinners": "^0.13.6",
     "react-toastify": "^9.0.8",
     "react-transition-group": "^4.4.5",
+    "reactjs-popup": "^2.0.5",
     "sass": "^1.54.0",
     "swiper": "^8.4.4",
     "yup": "^0.32.11"
@@ -38,7 +40,6 @@
   "devDependencies": {
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "@types/react-query": "^1.2.9",
     "@types/react-select": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
