@@ -15,7 +15,7 @@ export const SignInForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { username, isLoading, isError, isSuccess } = useAppSelector(
+  const { username, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
 
@@ -25,7 +25,7 @@ export const SignInForm = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error("error");
+      toast.error(message);
     }
     if (isSuccess) {
       navigate("/");

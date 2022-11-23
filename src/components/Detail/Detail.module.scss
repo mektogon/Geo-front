@@ -33,7 +33,7 @@
 }
 
 .designation {
-  @apply flex justify-evenly py-2;
+  @apply mb-4 flex justify-between p-5;
 }
 
 .desc {
@@ -53,16 +53,16 @@
 }
 
 .label {
-  @apply mr-5 w-24;
+  @apply mr-5 w-24 break-words;
 }
 
 .text {
-  @apply mx-auto  mt-5   ml-5  flex w-full rounded-2xl p-5 shadow-2xl;
+  @apply mx-auto  mt-5   ml-5  flex w-[90%] rounded-2xl bg-slate-300 p-5  shadow-lg;
   @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
 }
 
 .image {
-  @apply mb-3 h-24 w-24;
+  @apply mb-3 h-56 w-52 object-cover;
 }
 
 .form {
@@ -95,4 +95,27 @@
 
 .left {
   @apply w-1/2 px-2 pb-4 pt-0;
+}
+
+.text_geo {
+  @apply mx-auto  mt-5   ml-5  flex w-[150px] rounded-2xl bg-slate-300 p-3 shadow-lg;
+  @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
+}
+
+.audio {
+  @apply mb-1 w-full text-sm font-semibold;
+}
+
+.toggle {
+  @apply mt-3 flex items-center justify-between;
+}
+
+.audio_player {
+  @apply flex justify-start;
+}
+
+.icon {
+  button {
+    @apply cursor-pointer;
+  }
 }

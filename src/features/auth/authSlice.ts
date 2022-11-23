@@ -10,6 +10,7 @@ interface AsyncState {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
+  message: string;
 }
 
 interface AuthState extends AsyncState {
@@ -21,6 +22,7 @@ const initialState: AuthState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
+  message: "",
 };
 
 export const login = createAsyncThunk(
@@ -45,6 +47,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
+      state.message = "";
     },
   },
 
@@ -63,6 +66,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.username = null;
+        state.message = action.payload as string;
       })
       .addCase(logout.fulfilled, (state) => {
         state.username = null;

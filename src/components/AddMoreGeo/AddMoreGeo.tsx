@@ -1,5 +1,4 @@
 import { Field, Form, Formik } from "formik";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -82,7 +81,7 @@ export const AddMoreGeo = () => {
     <div className={styles.add}>
       <Formik
         initialValues={geo}
-        // validationSchema={addCardSchema}
+        validationSchema={addCardSchema}
         onSubmit={async (values) => {
           const data: any = new FormData();
 

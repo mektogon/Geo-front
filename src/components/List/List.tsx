@@ -42,7 +42,7 @@ export const List: React.FC<ListProps> = ({ data, isLoading, searchTerm }) => {
         ?.filter(({ name }: any) =>
           name.toLowerCase().includes(searchTerm!.toLowerCase())
         )
-        .map(({ name, id, latitude, longitude, photoList }: Geo) => (
+        .map(({ name, id, latitude, longitude, photoList, isPlaying }: Geo) => (
           <div
             onMouseMove={() => prefetchNext(id)}
             className={styles.item}
@@ -54,6 +54,7 @@ export const List: React.FC<ListProps> = ({ data, isLoading, searchTerm }) => {
               latitude={latitude}
               photoList={photoList}
               longitude={longitude}
+              isPlaying={isPlaying}
             />
           </div>
         ))}

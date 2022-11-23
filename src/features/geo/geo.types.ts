@@ -29,6 +29,7 @@ export interface Geo {
   name?: string;
   type?: string;
   latitude?: string;
+  isPlaying?: boolean;
   longitude?: string;
   description?: string;
   note?: string;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
+import { toast } from "react-toastify";
 
 import { Button, ItemsGrid, Tooltip } from "@common";
 
@@ -18,7 +19,14 @@ export const Card: React.FC<Geo> = ({ ...props }) => {
   const [deleteGeo, { isLoading: isLoadingDeleteGeo }] = useDeleteGeoMutation();
 
   const deleteHandler = async (id: Geo["id"] | undefined) => {
-    await deleteGeo(id!).unwrap();
+    if (window.confirm("Удалить гео-объект?")) {
+      await deleteGeo(id!)
+        .unwrap()
+        .then((payload: any) => {
+          toast.success("Deleted", payload);
+        })
+        .catch(({ data }) => toast.error(data.error));
+    }
   };
 
   return (

@@ -12,7 +12,16 @@ import { useDeletePhotoMutation } from "../../features/photo/photo";
 
 import styles from "./Slider.module.scss";
 
-export const Slider: React.FC = memo(({ items }: any) => {
+type Items = {
+  id: string;
+  url: string;
+};
+
+interface SliderProps {
+  items: Items[] | any;
+}
+
+export const Slider = memo(({ items }: SliderProps) => {
   const [deletePhoto, { isLoading: isDeletingCategory }] =
     useDeletePhotoMutation();
 
@@ -28,8 +37,6 @@ export const Slider: React.FC = memo(({ items }: any) => {
     }
   };
 
-  console.log(items, "items");
-
   return (
     <Swiper
       spaceBetween={30}
@@ -40,7 +47,7 @@ export const Slider: React.FC = memo(({ items }: any) => {
       modules={[Pagination, Navigation]}
       className="mySwiper"
     >
-      {items.map((item: any) => (
+      {items?.map((item: any) => (
         <SwiperSlide key={item.id}>
           <div className={styles.img}>
             <ItemsGrid data={item.url} />

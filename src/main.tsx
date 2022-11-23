@@ -10,8 +10,9 @@ import { store } from "./features/store";
 import App from "./App";
 
 import "react-toastify/dist/ReactToastify.css";
+import "react-html5video/dist/styles.css";
 import "./assets/css/globals.scss";
-import "reactjs-popup/dist/index.css";
+// import "node_modules/video-react/dist/video-react.css";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);

@@ -98,6 +98,14 @@ export const geoApi = createApi({
       }),
       providesTags: [{ type: "locality", id: "LIST" }],
     }),
+
+    deletePhoto: build.mutation<{ id: number }, number>({
+      query: (id) => ({
+        url: `/photo/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (photo) => [{ type: "geo", id: photo?.id }],
+    }),
   }),
 });
 export const {
@@ -110,5 +118,6 @@ export const {
   useGetDesignationsQuery,
   useGetTypeLocalitiesQuery,
   useDeleteGeoMutation,
+  useDeletePhotoMutation,
   usePrefetch,
 } = geoApi;

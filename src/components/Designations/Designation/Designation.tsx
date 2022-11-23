@@ -2,15 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { toast } from "react-toastify";
 
-import {
-  Button,
-  DeleteIcon,
-  EditableInput,
-  Input,
-  Modal,
-  Tooltip,
-  UpdateIcon,
-} from "@common";
+import { Button, DeleteIcon, Input, Tooltip, UpdateIcon } from "@common";
 import { UploadComponent } from "@common/upload/Upload";
 
 import {
@@ -18,7 +10,6 @@ import {
   useUpdateDesignationMutation,
 } from "../../../features/designations/designations";
 import { IDesignation } from "../../../features/designations/designations.types";
-import { useDeletePhotoMutation } from "../../../features/photo/photo";
 
 import styles from "./Designation.module.scss";
 
@@ -32,12 +23,14 @@ export const Designation = ({ name, url, id }: IDesignation) => {
     useUpdateDesignationMutation();
 
   const deleteHandler = async (id: any | undefined) => {
-    await deleteDesignation(id!)
-      .unwrap()
-      .then((payload: any) => {
-        toast.success("Deleted", payload);
-      })
-      .catch(({ data }) => toast.error(data.error));
+    if (window.confirm("Удалить обозначения?")) {
+      await deleteDesignation(id!)
+        .unwrap()
+        .then((payload: any) => {
+          toast.success("Deleted", payload);
+        })
+        .catch(({ data }) => toast.error(data.error));
+    }
   };
 
   const updateHandler = () => {
@@ -69,14 +62,7 @@ export const Designation = ({ name, url, id }: IDesignation) => {
               .catch((data: any) => toast.error(data.status));
           }}
         >
-          {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            setFieldValue,
-          }) => (
+          {({ values, handleBlur, handleChange, setFieldValue }) => (
             <Form>
               <UploadComponent
                 setFieldValue={setFieldValue}
@@ -103,6 +89,7 @@ export const Designation = ({ name, url, id }: IDesignation) => {
               <Button
                 type="submit"
                 variant="outlined"
+                loading={isUpdatingDesignation}
                 onClick={() => setIsEditing(!isEditing)}
               >
                 Cancel

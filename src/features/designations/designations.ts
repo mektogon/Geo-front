@@ -58,7 +58,7 @@ export const designationsApi = createApi({
     deleteDesignation: build.mutation<{ id: number }, number>({
       query(id) {
         return {
-          url: `designation/deleteById/${id}`,
+          url: `designation/${id}`,
           method: "DELETE",
         };
       },

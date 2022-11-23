@@ -1,5 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
+
+import { Button } from "@common";
 
 import styles from "./Upload.module.scss";
 
@@ -49,13 +51,15 @@ const rejectStyle = {
 
 const thumbsContainer = {
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "row" as "row",
   flexWrap: "wrap",
   marginTop: 16,
 };
 
 const thumb = {
-  display: "inline-flex",
+  display: "flex",
+  flexDirection: "column" as "column",
+
   borderRadius: 2,
   border: "1px solid #eaeaea",
   marginBottom: 8,
@@ -68,14 +72,15 @@ const thumb = {
 
 const thumbInner = {
   display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
+  width: "200px",
+  marginRight: "10px",
 };
 
 const img = {
   display: "block",
-  width: "auto",
-  height: "100%",
+  width: "200px",
+  height: "50px",
+  marginRight: "10px",
 };
 
 interface UploadProps {
@@ -85,12 +90,26 @@ interface UploadProps {
   extension: string;
   maxFiles: number;
   size?: string;
+  values?: any;
   error?: string | null;
+  deleteObject?: any;
+  isLoading?: boolean;
 }
 
 export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
-  const { setFieldValue, name, placeholder, extension, maxFiles, error, size } =
-    props;
+  const {
+    setFieldValue,
+    name,
+    placeholder,
+    extension,
+    maxFiles,
+    error,
+    size,
+    values,
+    deleteObject,
+    isLoading,
+  } = props;
+
   const {
     getRootProps,
     getInputProps,
@@ -98,13 +117,18 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     isFocused,
     isDragAccept,
     isDragReject,
-    inputRef,
-    acceptedFiles,
   } = useDropzone({
     accept: {},
     maxFiles,
     onDrop: (acceptedFiles) => {
-      setFieldValue(name, acceptedFiles);
+      setFieldValue(
+        name,
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
     },
   });
 
@@ -124,34 +148,33 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     [isFocused, isDragAccept, isDragReject]
   );
 
-  const removeFile = (file) => () => {
-    acceptedFiles.splice(acceptedFiles.indexOf(file), 1);
+  const removeFile = (file: any) => () => {
+    const newFiles = [...values];
+    newFiles.splice(newFiles.indexOf(file), 1);
+    deleteObject(file.id);
   };
 
-  const removeAll = () => {
-    acceptedFiles.length = 0;
-    acceptedFiles.splice(0, acceptedFiles.length);
-    inputRef.current.value = "";
-  };
-
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes{" "}
-      <div
-        onClick={removeFile(file)}
-        role="button"
-        tabIndex={0}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") removeFile(file);
-        }}
-      >
-        &times;
+  const thumbs = values?.map((file: any) => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img src={file.preview} style={img} alt={file.name} />
       </div>
-    </li>
+      <Button
+        type="button"
+        onClick={removeFile(file)}
+        variant="outlined"
+        loading={isLoading}
+      >
+        remove
+      </Button>
+    </div>
   ));
 
-  console.log(acceptedFiles, "acceptedFiles");
-
+  useEffect(
+    () => () =>
+      values?.forEach((file: any) => URL.revokeObjectURL(file.preview)),
+    []
+  );
   return (
     <div>
       <span className={styles.label}>{placeholder}</span>
@@ -166,6 +189,7 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
           </p>
         )}
       </div>
+      <aside style={thumbsContainer}>{thumbs}</aside>
     </div>
   );
 };
