@@ -149,7 +149,7 @@ export const Detail = () => {
               type: geo.type,
               id: geo.id,
               photo: geo?.photoList?.map((photo) => photo),
-              audio: geo?.audioList![0]?.url,
+              audio: geo?.audioList?.map((audio) => audio),
               latitude: geo?.latitude,
               designation: geo?.designation,
               longitude: geo?.longitude,
@@ -228,7 +228,6 @@ export const Detail = () => {
                           component={SelectField}
                           error={errors.designation}
                         />
-                        {console.log(values, "values")}
                         <UploadComponent
                           setFieldValue={setFieldValue}
                           name="audio"
@@ -237,10 +236,12 @@ export const Detail = () => {
                           size="150px"
                           extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
                         />
+                        {console.log(values, "audio")}
 
-                        {values?.audio?.map(({ name }, i): any => (
-                          <li key={i}>{`File:${name}`}</li>
-                        ))}
+                        {values.audio &&
+                          values.audio.map(({ name }) => (
+                            <li>{`File: ${name}`}</li>
+                          ))}
                       </div>
 
                       <div className={styles.type_object}>
