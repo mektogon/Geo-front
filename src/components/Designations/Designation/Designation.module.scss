@@ -29,3 +29,11 @@
 .delete {
   @apply bg-delete ml-5 h-[20px] w-[20px] cursor-pointer;
 }
+
+.buttons_save {
+  @apply mt-3 mb-3 flex;
+
+  button {
+    @apply w-24;
+  }
+}

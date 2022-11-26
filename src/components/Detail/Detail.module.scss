@@ -56,6 +56,12 @@
   @apply mr-5 w-24 break-words;
 }
 
+.text_description {
+  @apply mx-auto  mt-5   ml-5  flex w-[90%] rounded-2xl bg-slate-300 p-5  shadow-lg;
+  @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
+  @apply max-h-28 overflow-y-scroll;
+}
+
 .text {
   @apply mx-auto  mt-5   ml-5  flex w-[90%] rounded-2xl bg-slate-300 p-5  shadow-lg;
   @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
@@ -118,4 +124,8 @@
   button {
     @apply cursor-pointer;
   }
+}
+
+.input {
+  @apply border-2 border-dashed;
 }

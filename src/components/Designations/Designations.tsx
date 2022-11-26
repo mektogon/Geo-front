@@ -51,7 +51,11 @@ export const Designations: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Search isActive={false} onChange={handleChange} />
+      <Search
+        isActive={false}
+        onChange={handleChange}
+        placeholder="Поиск обозначения"
+      />
       <Button variant="text">Добавить Обозначения</Button>
       <form className={styles.add} onSubmit={onSubmit}>
         <div className={styles.field}>

@@ -1,5 +1,5 @@
 .category {
-  @apply mx-auto  mt-5   w-full  rounded-2xl p-5 shadow-2xl;
+  @apply mx-auto  mt-5   w-full  rounded-2xl bg-slate-100 p-5 shadow-xl;
   .text {
     @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
   }

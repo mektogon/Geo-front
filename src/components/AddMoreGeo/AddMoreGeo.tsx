@@ -75,7 +75,6 @@ export const AddMoreGeo = () => {
   }));
 
   if (isLoadingCreateGeo) return <Spinner />;
-  const toggleClass = " transform translate-x-5 text-transparent";
 
   return (
     <div className={styles.add}>
@@ -116,7 +115,7 @@ export const AddMoreGeo = () => {
               toast.success("Succeeded", payload);
               navigate("/");
             })
-            .catch((data) => toast.error(data.status));
+            .catch((data: any) => toast.error(data.data.error));
         }}
       >
         {({
@@ -162,29 +161,22 @@ export const AddMoreGeo = () => {
               <UploadComponent
                 setFieldValue={setFieldValue}
                 name="photo"
+                values={values.photo}
                 placeholder="Фото"
                 maxFiles={5}
-                size="70px"
+                size="120px"
                 extension="'jpeg', 'png'"
               />
-              {values.photo &&
-                values.photo.map(({ name }, i): any => (
-                  <li key={i}>{`File: ${name}`}</li>
-                ))}
 
               <UploadComponent
                 setFieldValue={setFieldValue}
                 name="audio"
                 maxFiles={1}
+                values={values.audio}
                 placeholder="Аудио"
                 size="70px"
                 extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
               />
-
-              {values.audio &&
-                values.audio.map(({ name }, i): any => (
-                  <li key={i}>{`File:${name}`}</li>
-                ))}
 
               <UploadComponent
                 setFieldValue={setFieldValue}
@@ -194,11 +186,6 @@ export const AddMoreGeo = () => {
                 placeholder="Видео"
                 extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
               />
-
-              {values.video &&
-                values.video.map(({ name }, i): any => (
-                  <li key={i}>{`File:${name}`}</li>
-                ))}
 
               <Field
                 name="type"

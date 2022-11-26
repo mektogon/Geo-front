@@ -73,7 +73,7 @@ export const Designation = ({ name, url, id }: IDesignation) => {
                 extension="'jpeg', 'png'"
               />
 
-              {values.url[0].name}
+              <div>{values.url[0].name}</div>
               <Input
                 placeholder="Name"
                 type="text"
@@ -83,17 +83,22 @@ export const Designation = ({ name, url, id }: IDesignation) => {
                 value={values.name}
               />
 
-              <Button type="submit" variant="outlined">
-                Save
-              </Button>
-              <Button
-                type="submit"
-                variant="outlined"
-                loading={isUpdatingDesignation}
-                onClick={() => setIsEditing(!isEditing)}
-              >
-                Cancel
-              </Button>
+              <div className={styles.buttons_save}>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  loading={isUpdatingDesignation}
+                >
+                  Save
+                </Button>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  onClick={() => setIsEditing(!isEditing)}
+                >
+                  Cancel
+                </Button>
+              </div>
             </Form>
           )}
         </Formik>

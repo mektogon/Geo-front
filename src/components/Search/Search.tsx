@@ -10,15 +10,20 @@ interface SearchProps extends React.ComponentPropsWithRef<"input"> {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string
   ) => void;
   isActive?: boolean;
+  placeholder?: string;
 }
 
-export const Search: React.FC<SearchProps> = ({ onChange, isActive }) => (
+export const Search: React.FC<SearchProps> = ({
+  onChange,
+  isActive,
+  placeholder,
+}) => (
   <div className={styles.search_block}>
     <input
       className={styles.search}
       type="search"
       onChange={onChange}
-      placeholder="Введите название географического объекта"
+      placeholder={placeholder}
     />
     {isActive && (
       <div className={styles.add}>

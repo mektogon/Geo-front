@@ -1,5 +1,6 @@
-import { Input, TextArea } from "@common";
+import { Input, SelectField, TextArea } from "@common";
 import { Switch } from "@headlessui/react";
+import { Field } from "formik";
 
 import styles from "./FormGeo.module.scss";
 
@@ -8,16 +9,28 @@ export const FormGeo = ({
   values,
   handleBlur,
   handleChange,
+  options,
   setFieldValue,
+  errors,
 }: any) => (
   <div className={styles.form}>
     <div>
+      <Input
+        type="text"
+        name="name"
+        placeholder="Название"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.name}
+        error={errors.name}
+      />
       <TextArea
         placeholder="Описание"
         name="description"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.description}
+        error={errors.description}
       />
 
       <Input
@@ -27,6 +40,7 @@ export const FormGeo = ({
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.note}
+        error={errors.note}
       />
 
       <Input
@@ -36,6 +50,7 @@ export const FormGeo = ({
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.region}
+        error={errors?.region}
       />
 
       <Input
@@ -45,6 +60,16 @@ export const FormGeo = ({
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.locality}
+        error={errors?.locality}
+      />
+
+      <Field
+        name="typeLocality"
+        placeholder="Тип Местности"
+        component={SelectField}
+        options={options}
+        onBlur={handleBlur}
+        error={errors?.typeLocality}
       />
 
       <Input
@@ -54,6 +79,7 @@ export const FormGeo = ({
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.street}
+        error={errors?.street}
       />
 
       <Input
@@ -63,6 +89,7 @@ export const FormGeo = ({
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.district}
+        error={errors?.district}
       />
 
       <Input
@@ -72,6 +99,7 @@ export const FormGeo = ({
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.houseNumber}
+        error={errors?.houseNumber}
       />
     </div>
   </div>

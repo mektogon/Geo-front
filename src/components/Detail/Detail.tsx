@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import {
   Button,
   DeleteIcon,
+  Dropzone,
   Input,
   LoadableImage,
   Player,
@@ -25,6 +26,7 @@ import {
   useDeleteGeoMutation,
   useGetDesignationsQuery,
   useGetGeographyQuery,
+  useGetTypeLocalitiesQuery,
   useGetTypesQuery,
   useUpdateGeoMutation,
 } from "../../features/geo/geo";
@@ -34,10 +36,11 @@ import {
 } from "../../features/photo/photo";
 
 import styles from "./Detail.module.scss";
+import { addCardSchema } from "@utils/validation";
+import { FileUploader } from "react-drag-drop-files";
+import { useDropzone } from "react-dropzone";
 
 export const Detail = () => {
-  const navigate = useNavigate();
-
   const [isActive, setIsActive] = useState<boolean>(false);
   const { id } = useParams<{ id: any }>();
   const { data: geo, isLoading } = useGetGeographyQuery(id);
@@ -54,6 +57,9 @@ export const Detail = () => {
   const { data: designations, isLoading: isLoadingDesignations } =
     useGetDesignationsQuery([]);
 
+  const { data: typeLocalities, isLoading: isLoadingTypeLocalities } =
+    useGetTypeLocalitiesQuery([]);
+
   const options = typeObjects?.map((type: any) => ({
     value: type.name,
     label: type.name,
@@ -64,7 +70,17 @@ export const Detail = () => {
     label: type.name,
   }));
 
-  if (isLoading && isLoadingTypeObjects && isLoadingDesignations)
+  const options3 = typeLocalities?.map((type: any) => ({
+    value: type.name,
+    label: type.name,
+  }));
+
+  if (
+    isLoading &&
+    isLoadingTypeObjects &&
+    isLoadingDesignations &&
+    isLoadingTypeLocalities
+  )
     return <Spinner />;
   if (isUpdating) return <Spinner />;
 
@@ -107,7 +123,25 @@ export const Detail = () => {
     }
   };
 
-  console.log(geo, "geo");
+  const geoInitial = {
+    description: geo.description,
+    note: geo.note,
+    name: geo.name,
+    region: geo.addressDto !== null ? geo?.addressDto?.region : "",
+    type: geo.type,
+    id: geo.id,
+    photo: geo?.photoList?.map((photo) => photo),
+    audio: geo?.audioList?.map((audio) => audio),
+    latitude: geo?.latitude,
+    designation: geo?.designation,
+    longitude: geo?.longitude,
+    locality: geo.addressDto !== null ? geo?.addressDto?.locality : "",
+    typeLocality: geo.addressDto !== null ? geo?.addressDto?.typeLocality : "",
+    isPlaying: geo?.isPlaying,
+    street: geo.addressDto !== null ? geo?.addressDto?.street : "",
+    district: geo.addressDto !== null ? geo?.addressDto?.district : "",
+    houseNumber: geo.addressDto !== null ? geo?.addressDto?.houseNumber : "",
+  };
 
   return (
     <div className={styles.detail}>
@@ -142,24 +176,8 @@ export const Detail = () => {
 
         {isActive ? (
           <Formik
-            initialValues={{
-              description: geo.description,
-              note: geo.note,
-              region: geo?.addressDto?.region,
-              type: geo.type,
-              id: geo.id,
-              photo: geo?.photoList?.map((photo) => photo),
-              audio: geo?.audioList?.map((audio) => audio),
-              latitude: geo?.latitude,
-              designation: geo?.designation,
-              longitude: geo?.longitude,
-              locality: geo?.addressDto?.locality,
-              typeLocality: geo?.addressDto?.typeLocality,
-              isPlaying: geo?.isPlaying,
-              street: geo?.addressDto?.street,
-              district: geo?.addressDto?.district,
-              houseNumber: geo?.addressDto?.houseNumber,
-            }}
+            initialValues={geoInitial}
+            validationSchema={addCardSchema}
             onSubmit={async (values) => {
               const data: any = new FormData();
 
@@ -169,9 +187,12 @@ export const Detail = () => {
 
               data.append("audio", values.audio[0]);
 
+              data.append("name", values.name);
+
               data.append("id", values.id);
               data.append("description", values.description);
               data.append("isPlaying", values.isPlaying);
+              data.append("designation", values.designation);
 
               data.append("type", values.type);
               data.append("note", values.note);
@@ -187,13 +208,15 @@ export const Detail = () => {
               data.append("district", values.district);
               data.append("houseNumber", values.houseNumber);
 
+              // console.log(values, "send");
+
               await updateGeo(data)
                 .unwrap()
                 .then((payload: any) => {
                   toast.success("Succeeded", payload);
                   setIsActive(!isActive);
                 })
-                .catch((data: any) => toast.error(data.status));
+                .catch((data: any) => toast.error(data.data.message));
             }}
           >
             {({
@@ -207,16 +230,15 @@ export const Detail = () => {
               <Form>
                 <div className={styles.block}>
                   <div className={styles.left}>
-                    <UploadComponent
-                      setFieldValue={setFieldValue}
-                      values={values.photo}
-                      name="photo"
-                      isLoading={isDeletingPhoto}
+                    <Input
                       placeholder="Фото"
-                      deleteObject={deleteHandlerPhoto}
-                      size="250px"
-                      maxFiles={5}
-                      extension="'jpeg', 'png'"
+                      name="photo"
+                      type="file"
+                      className={styles.input}
+                      multiple
+                      onChange={(event) => {
+                        setFieldValue("photo", event.target.files);
+                      }}
                     />
 
                     <div className={styles.geo}>
@@ -236,12 +258,6 @@ export const Detail = () => {
                           size="150px"
                           extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
                         />
-                        {console.log(values, "audio")}
-
-                        {values.audio &&
-                          values.audio.map(({ name }) => (
-                            <li>{`File: ${name}`}</li>
-                          ))}
                       </div>
 
                       <div className={styles.type_object}>
@@ -259,6 +275,7 @@ export const Detail = () => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.latitude}
+                          error={errors.latitude}
                         />
                         <Input
                           placeholder="Долгота"
@@ -267,6 +284,7 @@ export const Detail = () => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.longitude}
+                          error={errors.longitude}
                         />
 
                         <div className={styles.toggle}>
@@ -301,6 +319,8 @@ export const Detail = () => {
                     <FormGeo
                       geo={geo}
                       update={updateGeo}
+                      errors={errors}
+                      options={options3}
                       setIsActive={setIsActive}
                       isActive={isActive}
                       setFieldValue={setFieldValue}
@@ -323,7 +343,7 @@ export const Detail = () => {
               <Slider items={geo.photoList} />
               <div className={styles.designation}>
                 <div>
-                  <p>Обозначения</p>
+                  <p>Обозначение</p>
                   <LoadableImage
                     style={styles.image}
                     src={geo?.designation?.url}
@@ -347,10 +367,10 @@ export const Detail = () => {
                 </div>
               </div>
 
-              {!geo.audioList?.length <= 0 ? (
+              {!geo.audioList?.length <= 0 && (
                 <div className={styles.audio_player}>
                   <div>
-                    <Player url={url} isPlaying={geo?.isPlaying} />
+                    <Player url={url} />
                   </div>
                   <div className={styles.icon}>
                     <Button
@@ -366,7 +386,7 @@ export const Detail = () => {
                     </Button>
                   </div>
                 </div>
-              ) : null}
+              )}
             </div>
 
             <div className={styles.right}>
@@ -374,7 +394,9 @@ export const Detail = () => {
                 <div className={styles.items}>
                   <div className={styles.item}>
                     <div className={styles.label}>Описание:</div>
-                    <div className={styles.text}>{geo.description}</div>
+                    <div className={styles.text_description}>
+                      {geo.description}
+                    </div>
                   </div>
 
                   <div className={styles.item}>

@@ -19,7 +19,7 @@ export const CategoryPage: React.FC = () => {
   };
   return (
     <>
-      <Search onChange={handleSearch} />
+      <Search onChange={handleSearch} placeholder="Поиск категории" />
       <Categories searchTerm={searchTerm} />
     </>
   );

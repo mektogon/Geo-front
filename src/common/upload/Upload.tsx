@@ -106,8 +106,6 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     error,
     size,
     values,
-    deleteObject,
-    isLoading,
   } = props;
 
   const {
@@ -117,18 +115,12 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     isFocused,
     isDragAccept,
     isDragReject,
+    acceptedFiles,
   } = useDropzone({
     accept: {},
     maxFiles,
     onDrop: (acceptedFiles) => {
-      setFieldValue(
-        name,
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
+      setFieldValue(name, acceptedFiles);
     },
   });
 
@@ -151,30 +143,18 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
   const removeFile = (file: any) => () => {
     const newFiles = [...values];
     newFiles.splice(newFiles.indexOf(file), 1);
-    deleteObject(file.id);
+    setFieldValue(name, newFiles);
   };
 
-  const thumbs = values?.map((file: any) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
-        <img src={file.preview} style={img} alt={file.name} />
-      </div>
-      <Button
-        type="button"
-        onClick={removeFile(file)}
-        variant="outlined"
-        loading={isLoading}
-      >
-        remove
-      </Button>
-    </div>
+  const files = values?.map((file: any, i) => (
+    <li key={file.path}>
+      {file.path}
+      <button type="button" onClick={removeFile(file)}>
+        &times;
+      </button>
+    </li>
   ));
 
-  useEffect(
-    () => () =>
-      values?.forEach((file: any) => URL.revokeObjectURL(file.preview)),
-    []
-  );
   return (
     <div>
       <span className={styles.label}>{placeholder}</span>
@@ -189,7 +169,7 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
           </p>
         )}
       </div>
-      <aside style={thumbsContainer}>{thumbs}</aside>
+      <ul>{files}</ul>
     </div>
   );
 };

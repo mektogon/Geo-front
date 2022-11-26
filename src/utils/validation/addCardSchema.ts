@@ -16,7 +16,7 @@ export const addCardSchema = Yup.object().shape({
     .min(-180)
     .max(180),
   note: Yup.string().notRequired(),
-  description: Yup.string().required("Обязательное поле"),
+  description: Yup.string().notRequired(),
 
   region: Yup.string().notRequired(),
   typeLocality: Yup.string().notRequired(),
