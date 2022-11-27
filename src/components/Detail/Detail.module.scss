@@ -131,5 +131,13 @@
 }
 
 .switch {
-  @apply mb-4 flex font-bold;
+  @apply mb-4 flex gap-5 font-bold;
+}
+
+.video_player {
+  @apply relative;
+
+  button {
+    @apply absolute right-5 top-0;
+  }
 }

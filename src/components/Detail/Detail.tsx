@@ -1,13 +1,12 @@
 import { Field, Form, Formik } from "formik";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import {
   Button,
   DeleteIcon,
-  Dropzone,
   Input,
   LoadableImage,
   Player,
@@ -18,6 +17,7 @@ import {
 import { UploadComponent } from "@common/upload/Upload";
 import { FormGeo, Slider } from "@components";
 import { Switch } from "@headlessui/react";
+import { addCardSchema } from "@utils/validation";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -33,12 +33,10 @@ import {
 import {
   useDeleteAudioMutation,
   useDeletePhotoMutation,
+  useDeleteVideoMutation,
 } from "../../features/photo/photo";
 
 import styles from "./Detail.module.scss";
-import { addCardSchema } from "@utils/validation";
-import { FileUploader } from "react-drag-drop-files";
-import { useDropzone } from "react-dropzone";
 
 export const Detail = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -51,6 +49,9 @@ export const Detail = () => {
     useDeletePhotoMutation();
   const [deleteAudio, { isLoading: isDeletingAudio }] =
     useDeleteAudioMutation();
+
+  const [deleteVideo, { isLoading: isDeletingVideo }] =
+    useDeleteVideoMutation();
 
   const { data: typeObjects, isLoading: isLoadingTypeObjects } =
     useGetTypesQuery([]);
@@ -87,11 +88,11 @@ export const Detail = () => {
 
   if (!geo) return <div>Missing geo!</div>;
 
-  const url = geo?.audioList![0]?.url!;
+  const url = geo?.audioList![0]?.url;
 
-  const deleteHandlerPhoto = async (item: number | undefined) => {
-    if (window.confirm("Delete photo?")) {
-      await deletePhoto(item!)
+  const deleteHandlerVideo = async (item: number | undefined) => {
+    if (window.confirm("Delete video?")) {
+      await deleteVideo(item!)
         .unwrap()
         .then((payload: any) => {
           toast.success("Succeeded", payload);
@@ -164,7 +165,7 @@ export const Detail = () => {
                 Редактировать
               </div>
             ) : (
-              <div>&times;</div>
+              <div>Вернуться обратно</div>
             )}
           </div>
           <Button
@@ -189,10 +190,10 @@ export const Detail = () => {
               const data: any = new FormData();
 
               for (let i = 0; i <= values.photo.length; i++) {
-                data.append("photo", values.photo[i]);
+                data.append(`photo`, values.photo[i]);
               }
 
-              data.append("audio", values.audio[0]);
+              data.append("audio", values.audio);
               data.append("video", values.video);
 
               data.append("name", values.name);
@@ -215,10 +216,6 @@ export const Detail = () => {
               data.append("street", values.street);
               data.append("district", values.district);
               data.append("houseNumber", values.houseNumber);
-
-              console.log(values, "send");
-
-              console.log(data.get("audio"));
 
               await updateGeo(data)
                 .unwrap()
@@ -270,14 +267,15 @@ export const Detail = () => {
                           component={SelectField}
                           error={errors.designation}
                         />
-                        <UploadComponent
-                          setFieldValue={setFieldValue}
-                          name="audio"
-                          maxFiles={1}
-                          values={values.audio}
+
+                        <Input
                           placeholder="Аудио"
-                          size="150px"
-                          extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
+                          name="audio"
+                          type="file"
+                          className={styles.input}
+                          onChange={(event) => {
+                            setFieldValue("audio", event.target.files[0]);
+                          }}
                         />
                       </div>
 
@@ -381,7 +379,25 @@ export const Detail = () => {
               {!isToggle ? (
                 <Slider items={geo.photoList} />
               ) : (
-                <ReactPlayer url={geo?.videoList[0]?.url} controls />
+                <div className={styles.video_player}>
+                  <ReactPlayer
+                    url={geo?.videoList[0]?.url}
+                    controls
+                    width="100%"
+                  />
+
+                  <Button
+                    variant="text"
+                    disabled={isDeletingVideo}
+                    onClick={() => deleteHandlerVideo(geo.videoList[0].id)}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter")
+                        deleteHandlerVideo(geo.videoList[0].id);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </div>
               )}
               <div className={styles.designation}>
                 <div>

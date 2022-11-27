@@ -1,10 +1,10 @@
 import cn from "classnames";
 import React from "react";
+import ReactPlayer from "react-player";
 
 import { useOnScreen } from "@utils/hooks";
 
 import styles from "./Image.module.scss";
-import ReactPlayer from "react-player";
 
 export interface ILoadableImage {
   src?: string;

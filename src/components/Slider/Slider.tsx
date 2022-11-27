@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import ReactPlayer from "react-player";
 import { toast } from "react-toastify";
 import { Lazy, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,7 +12,6 @@ import "swiper/css/pagination";
 import { useDeletePhotoMutation } from "../../features/photo/photo";
 
 import styles from "./Slider.module.scss";
-import ReactPlayer from "react-player";
 
 type Items = {
   id: string;

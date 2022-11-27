@@ -1,6 +1,7 @@
+import { Field } from "formik";
+
 import { Input, SelectField, TextArea } from "@common";
 import { Switch } from "@headlessui/react";
-import { Field } from "formik";
 
 import styles from "./FormGeo.module.scss";
 

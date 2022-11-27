@@ -5,7 +5,7 @@ import type { RootState } from "../store";
 
 export const photoApi = createApi({
   reducerPath: "photoApi",
-  tagTypes: ["photo", "audio"],
+  tagTypes: ["photo", "audio", "video"],
   refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl,
@@ -36,6 +36,18 @@ export const photoApi = createApi({
       }),
       invalidatesTags: (audio) => [{ type: "audio", id: audio?.id }],
     }),
+
+    deleteVideo: build.mutation<{ id: number }, number>({
+      query: (id) => ({
+        url: `/video/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (video) => [{ type: "audio", id: video?.id }],
+    }),
   }),
 });
-export const { useDeletePhotoMutation, useDeleteAudioMutation } = photoApi;
+export const {
+  useDeletePhotoMutation,
+  useDeleteAudioMutation,
+  useDeleteVideoMutation,
+} = photoApi;

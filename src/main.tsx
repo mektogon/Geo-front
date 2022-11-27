@@ -5,13 +5,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import "swiper/css";
+import "swiper/css/lazy";
 
 import { store } from "./features/store";
 import App from "./App";
 
 import "react-toastify/dist/ReactToastify.css";
-import "swiper/css/lazy";
-
 import "./assets/css/globals.scss";
 // import "node_modules/video-react/dist/video-react.css";
 
