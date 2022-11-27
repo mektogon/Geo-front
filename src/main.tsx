@@ -10,6 +10,8 @@ import { store } from "./features/store";
 import App from "./App";
 
 import "react-toastify/dist/ReactToastify.css";
+import "swiper/css/lazy";
+
 import "./assets/css/globals.scss";
 // import "node_modules/video-react/dist/video-react.css";
 

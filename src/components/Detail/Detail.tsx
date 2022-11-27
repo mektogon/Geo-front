@@ -86,6 +86,10 @@ export const Detail = () => {
 
   if (!geo) return <div>Missing geo!</div>;
 
+  const slider = [...geo.photoList, ...geo.videoList];
+
+  console.log(slider, "slider");
+
   const url = geo?.audioList![0]?.url!;
   const video = geo?.videoList![0]?.url!;
 
@@ -340,7 +344,7 @@ export const Detail = () => {
         ) : (
           <div className={styles.block}>
             <div className={styles.left}>
-              <Slider items={geo.photoList} />
+              <Slider items={slider} />
               <div className={styles.designation}>
                 <div>
                   <p>Обозначение</p>

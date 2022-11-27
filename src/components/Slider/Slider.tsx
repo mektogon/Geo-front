@@ -1,6 +1,6 @@
-import { memo } from "react";
+import React, { memo } from "react";
 import { toast } from "react-toastify";
-import { Navigation, Pagination } from "swiper";
+import { Lazy, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Button, DeleteIcon, ItemsGrid } from "@common";
@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import { useDeletePhotoMutation } from "../../features/photo/photo";
 
 import styles from "./Slider.module.scss";
+import ReactPlayer from "react-player";
 
 type Items = {
   id: string;
@@ -19,9 +20,11 @@ type Items = {
 
 interface SliderProps {
   items: Items[] | any;
+  video?: Items[] | any;
+  lastIdx?: any;
 }
 
-export const Slider = memo(({ items }: SliderProps) => {
+export const Slider = memo(({ items, video, lastIdx }: SliderProps) => {
   const [deletePhoto, { isLoading: isDeletingCategory }] =
     useDeletePhotoMutation();
 
@@ -37,20 +40,25 @@ export const Slider = memo(({ items }: SliderProps) => {
     }
   };
 
+  console.log(video, "video");
+
   return (
     <Swiper
       spaceBetween={30}
       navigation
+      lazy
       pagination={{
         clickable: true,
       }}
-      modules={[Pagination, Navigation]}
+      modules={[Pagination, Navigation, Lazy]}
       className="mySwiper"
     >
       {items?.map((item: any) => (
         <SwiperSlide key={item.id}>
           <div className={styles.img}>
-            <ItemsGrid data={item.url} />
+            <img src={item.url} alt="" className="swiper-lazy" />
+            <div className="swiper-lazy-preloader swiper-lazy-preloader-black" />
+
             <div className={styles.icon}>
               <Button
                 variant="text"
@@ -64,6 +72,7 @@ export const Slider = memo(({ items }: SliderProps) => {
               </Button>
             </div>
           </div>
+          {/* {video && <ReactPlayer url={video[0].url} controls />} */}
         </SwiperSlide>
       ))}
     </Swiper>
