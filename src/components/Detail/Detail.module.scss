@@ -129,3 +129,7 @@
 .input {
   @apply border-2 border-dashed;
 }
+
+.switch {
+  @apply mb-4 flex font-bold;
+}

@@ -42,6 +42,7 @@ import { useDropzone } from "react-dropzone";
 
 export const Detail = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isToggle, setIsToggle] = useState<boolean>(false);
   const { id } = useParams<{ id: any }>();
   const { data: geo, isLoading } = useGetGeographyQuery(id);
   const [deleteGeo, { isLoading: isDeleteGeo }] = useDeleteGeoMutation();
@@ -86,12 +87,7 @@ export const Detail = () => {
 
   if (!geo) return <div>Missing geo!</div>;
 
-  const slider = [...geo.photoList, ...geo.videoList];
-
-  console.log(slider, "slider");
-
   const url = geo?.audioList![0]?.url!;
-  const video = geo?.videoList![0]?.url!;
 
   const deleteHandlerPhoto = async (item: number | undefined) => {
     if (window.confirm("Delete photo?")) {
@@ -136,6 +132,7 @@ export const Detail = () => {
     id: geo.id,
     photo: geo?.photoList?.map((photo) => photo),
     audio: geo?.audioList?.map((audio) => audio),
+    video: geo?.videoList?.map((video) => video),
     latitude: geo?.latitude,
     designation: geo?.designation,
     longitude: geo?.longitude,
@@ -161,8 +158,14 @@ export const Detail = () => {
               if (e.key === "Enter") setIsActive(true);
             }}
           >
-            <UpdateIcon />
-            Редактировать
+            {!isActive ? (
+              <div style={{ display: "flex" }}>
+                <UpdateIcon />
+                Редактировать
+              </div>
+            ) : (
+              <div>&times;</div>
+            )}
           </div>
           <Button
             className={styles.delete}
@@ -185,11 +188,12 @@ export const Detail = () => {
             onSubmit={async (values) => {
               const data: any = new FormData();
 
-              for (let i = 0; i < values.photo.length; i++) {
+              for (let i = 0; i <= values.photo.length; i++) {
                 data.append("photo", values.photo[i]);
               }
 
               data.append("audio", values.audio[0]);
+              data.append("video", values.video);
 
               data.append("name", values.name);
 
@@ -212,7 +216,9 @@ export const Detail = () => {
               data.append("district", values.district);
               data.append("houseNumber", values.houseNumber);
 
-              // console.log(values, "send");
+              console.log(values, "send");
+
+              console.log(data.get("audio"));
 
               await updateGeo(data)
                 .unwrap()
@@ -245,6 +251,16 @@ export const Detail = () => {
                       }}
                     />
 
+                    <Input
+                      placeholder="Видео"
+                      name="video"
+                      type="file"
+                      className={styles.input}
+                      onChange={(event) => {
+                        setFieldValue("video", event.target.files[0]);
+                      }}
+                    />
+
                     <div className={styles.geo}>
                       <div className={styles.geo_designation}>
                         <Field
@@ -258,6 +274,7 @@ export const Detail = () => {
                           setFieldValue={setFieldValue}
                           name="audio"
                           maxFiles={1}
+                          values={values.audio}
                           placeholder="Аудио"
                           size="150px"
                           extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
@@ -344,7 +361,28 @@ export const Detail = () => {
         ) : (
           <div className={styles.block}>
             <div className={styles.left}>
-              <Slider items={slider} />
+              <div className={styles.switch}>
+                <div>PHOTO \ VIDEO</div>
+                <Switch
+                  checked={isToggle}
+                  onChange={setIsToggle}
+                  className={`${
+                    isToggle ? "bg-blue-600" : "bg-gray-200"
+                  } relative inline-flex h-6 w-11 items-center rounded-full`}
+                >
+                  <span
+                    className={`${
+                      isToggle ? "translate-x-6" : "translate-x-1"
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                  />
+                </Switch>
+              </div>
+
+              {!isToggle ? (
+                <Slider items={geo.photoList} />
+              ) : (
+                <ReactPlayer url={geo?.videoList[0]?.url} controls />
+              )}
               <div className={styles.designation}>
                 <div>
                   <p>Обозначение</p>

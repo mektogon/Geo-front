@@ -146,7 +146,7 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
     setFieldValue(name, newFiles);
   };
 
-  const files = values?.map((file: any, i) => (
+  const files = values?.map((file: any) => (
     <li key={file.path}>
       {file.path}
       <button type="button" onClick={removeFile(file)}>
