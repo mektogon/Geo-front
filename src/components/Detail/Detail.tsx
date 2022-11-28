@@ -139,7 +139,7 @@ export const Detail = () => {
     audio: geo?.audioList?.map((audio) => audio),
     video: geo?.videoList?.map((video) => video),
     latitude: geo?.latitude,
-    designation: geoDesignation[0].name,
+    designation: geoDesignation[0]?.name,
     longitude: geo?.longitude,
     locality: geo.addressDto !== null ? geo?.addressDto?.locality : "",
     typeLocality: geo.addressDto !== null ? geo?.addressDto?.typeLocality : "",
