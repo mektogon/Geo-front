@@ -15,6 +15,7 @@ export const FormGeo = ({
   errors,
 }: any) => (
   <div className={styles.form}>
+    {console.log(geo, "geo")}
     <div>
       <Input
         type="text"

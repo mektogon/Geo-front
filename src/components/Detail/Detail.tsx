@@ -124,6 +124,10 @@ export const Detail = () => {
     }
   };
 
+  const geoDesignation = designations?.filter(
+    ({ id }) => id === geo?.designation?.id
+  );
+
   const geoInitial = {
     description: geo.description,
     note: geo.note,
@@ -135,7 +139,7 @@ export const Detail = () => {
     audio: geo?.audioList?.map((audio) => audio),
     video: geo?.videoList?.map((video) => video),
     latitude: geo?.latitude,
-    designation: geo?.designation,
+    designation: geoDesignation[0].name,
     longitude: geo?.longitude,
     locality: geo.addressDto !== null ? geo?.addressDto?.locality : "",
     typeLocality: geo.addressDto !== null ? geo?.addressDto?.typeLocality : "",
@@ -144,6 +148,8 @@ export const Detail = () => {
     district: geo.addressDto !== null ? geo?.addressDto?.district : "",
     houseNumber: geo.addressDto !== null ? geo?.addressDto?.houseNumber : "",
   };
+
+  console.log(geoDesignation, " geoDesignation");
 
   return (
     <div className={styles.detail}>
@@ -384,19 +390,22 @@ export const Detail = () => {
                     url={geo?.videoList[0]?.url}
                     controls
                     width="100%"
+                    style={{ position: "relative" }}
                   />
 
-                  <Button
-                    variant="text"
-                    disabled={isDeletingVideo}
-                    onClick={() => deleteHandlerVideo(geo.videoList[0].id)}
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter")
-                        deleteHandlerVideo(geo.videoList[0].id);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </Button>
+                  {geo?.videoList[0]?.url ? (
+                    <Button
+                      variant="text"
+                      disabled={isDeletingVideo}
+                      onClick={() => deleteHandlerVideo(geo.videoList[0].id)}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter")
+                          deleteHandlerVideo(geo.videoList[0].id);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  ) : null}
                 </div>
               )}
               <div className={styles.designation}>
