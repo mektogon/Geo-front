@@ -13,7 +13,7 @@ import { IDesignation } from "../../../features/designations/designations.types"
 
 import styles from "./Designation.module.scss";
 
-export const Designation = ({ name, url, id }: IDesignation) => {
+export const Designation = ({ name, url, id }: any) => {
   const [isEditing, setIsEditing] = React.useState(false);
 
   const [deleteDesignation, { isLoading: isDeletingDesignation }] =

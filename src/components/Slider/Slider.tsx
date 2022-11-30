@@ -40,8 +40,6 @@ export const Slider = memo(({ items, video, lastIdx }: SliderProps) => {
     }
   };
 
-  console.log(video, "video");
-
   return (
     <Swiper
       spaceBetween={30}

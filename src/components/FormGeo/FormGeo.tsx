@@ -34,8 +34,7 @@ export const FormGeo = ({
         error={errors.description}
       />
 
-      <Input
-        type="text"
+      <TextArea
         name="note"
         placeholder="Заметка"
         onChange={handleChange}

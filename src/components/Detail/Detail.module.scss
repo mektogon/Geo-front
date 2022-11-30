@@ -57,9 +57,16 @@
 }
 
 .text_description {
+  @apply mx-auto  mt-5   ml-5  flex w-[90%] rounded-2xl bg-slate-300 p-5  shadow-lg outline-none;
+  @apply mx-auto  font-mono text-sm font-bold uppercase;
+  @apply max-h-28;
+}
+
+.text_overflow {
   @apply mx-auto  mt-5   ml-5  flex w-[90%] rounded-2xl bg-slate-300 p-5  shadow-lg;
   @apply mx-auto  text-center font-mono text-sm font-bold uppercase;
   @apply max-h-28 overflow-y-scroll;
+  @apply w-[200px] cursor-pointer  overflow-hidden text-ellipsis  whitespace-nowrap px-3;
 }
 
 .text {

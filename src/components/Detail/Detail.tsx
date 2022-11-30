@@ -12,6 +12,7 @@ import {
   Player,
   SelectField,
   Spinner,
+  Tooltip,
   UpdateIcon,
 } from "@common";
 import { FormGeo, Slider } from "@components";
@@ -81,7 +82,9 @@ export const Detail = () => {
   if (isLoadingDesignations) return <Spinner />;
   if (!geo) return <div>Missing geo!</div>;
 
-  const url = geo?.audioList![0]?.url;
+  const audio = geo?.audioList[0]?.url;
+  const player = geo?.videoList[0]?.url;
+  const img = geo?.designation?.url;
 
   const deleteHandlerVideo = async (item: number | undefined) => {
     if (window.confirm("Delete video?")) {
@@ -89,6 +92,7 @@ export const Detail = () => {
         .unwrap()
         .then((payload: any) => {
           toast.success("Succeeded", payload);
+          window.location.reload();
         })
         .catch((data) => toast.error(data.status));
     }
@@ -118,7 +122,7 @@ export const Detail = () => {
   };
 
   const geoDesignation = designations?.filter(
-    ({ id }) => id === geo?.designation?.id
+    ({ id }: any) => id === geo?.designation?.id
   );
 
   const geoInitial = {
@@ -128,9 +132,9 @@ export const Detail = () => {
     region: geo.addressDto !== null ? geo?.addressDto?.region : "",
     type: geo.type,
     id: geo.id,
-    photo: geo?.photoList?.map((photo) => photo),
-    audio: geo?.audioList?.map((audio) => audio),
-    video: geo?.videoList?.map((video) => video),
+    photo: geo?.photoList?.map((photo: any) => photo),
+    audio: geo?.audioList?.map((audio: any) => audio),
+    video: geo?.videoList?.map((video: any) => video),
     latitude: geo?.latitude,
     designation: geoDesignation[0]?.name,
     longitude: geo?.longitude,
@@ -142,7 +146,7 @@ export const Detail = () => {
     houseNumber: geo.addressDto !== null ? geo?.addressDto?.houseNumber : "",
   };
 
-  console.log(geoDesignation, " geoDesignation");
+  console.log(geo, "geo");
 
   return (
     <div className={styles.detail}>
@@ -230,7 +234,7 @@ export const Detail = () => {
                 .unwrap()
                 .then((payload: any) => {
                   toast.success("Succeeded", payload);
-                  // setIsActive(!isActive);
+                  setIsActive(!isActive);
                 })
                 .catch((data: any) => toast.error(data.data.message));
             }}
@@ -262,7 +266,7 @@ export const Detail = () => {
                       name="video"
                       type="file"
                       className={styles.input}
-                      onChange={(event) => {
+                      onChange={(event: any) => {
                         setFieldValue("video", event.target.files[0]);
                       }}
                     />
@@ -282,7 +286,7 @@ export const Detail = () => {
                           name="audio"
                           type="file"
                           className={styles.input}
-                          onChange={(event) => {
+                          onChange={(event: any) => {
                             setFieldValue("audio", event.target.files[0]);
                           }}
                         />
@@ -386,25 +390,23 @@ export const Detail = () => {
               </div>
 
               {!isToggle ? (
-                <Slider items={geo.photoList} />
+                <div style={{ height: "360px" }}>
+                  <Slider items={geo.photoList} />
+                </div>
               ) : (
                 <div className={styles.video_player}>
                   <ReactPlayer
-                    url={geo?.videoList[0]?.url}
+                    url={player}
                     controls
                     width="100%"
                     style={{ position: "relative" }}
                   />
 
-                  {geo?.videoList[0]?.url ? (
+                  {geo?.videoList && (geo?.videoList[0]?.url! as any) ? (
                     <Button
                       variant="text"
                       disabled={isDeletingVideo}
-                      onClick={() => deleteHandlerVideo(geo.videoList[0].id)}
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter")
-                          deleteHandlerVideo(geo.videoList[0].id);
-                      }}
+                      onClick={() => deleteHandlerVideo(geo?.videoList[0]?.id)}
                     >
                       <DeleteIcon />
                     </Button>
@@ -414,10 +416,7 @@ export const Detail = () => {
               <div className={styles.designation}>
                 <div>
                   <p>Обозначение</p>
-                  <LoadableImage
-                    style={styles.image}
-                    src={geo?.designation?.url}
-                  />
+                  <LoadableImage style={styles.image} src={img} />
                 </div>
                 <div className={styles.desc}>
                   <div className={styles.item}>
@@ -432,25 +431,27 @@ export const Detail = () => {
 
                   <div className={styles.item}>
                     <div className={styles.label}>Тип:</div>
-                    <div className={styles.text_geo}>{geo.type}</div>
+                    <Tooltip
+                      behavior="hover"
+                      content={geo.type}
+                      placement="top"
+                    >
+                      <div className={styles.text_overflow}>{geo.type}</div>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
 
-              {!geo.audioList?.length <= 0 && (
+              {geo.audioList.length <= 0 ? null : (
                 <div className={styles.audio_player}>
                   <div>
-                    <Player url={url} />
+                    <Player url={audio} />
                   </div>
                   <div className={styles.icon}>
                     <Button
                       variant="text"
                       disabled={isDeletingAudio}
                       onClick={() => deleteHandlerAudio(geo.audioList[0].id)}
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter")
-                          deleteHandlerAudio(geo.audioList[0].id);
-                      }}
                     >
                       <DeleteIcon />
                     </Button>
@@ -464,14 +465,16 @@ export const Detail = () => {
                 <div className={styles.items}>
                   <div className={styles.item}>
                     <div className={styles.label}>Описание:</div>
-                    <div className={styles.text_description}>
+                    <textarea className={styles.text_description} readOnly>
                       {geo.description}
-                    </div>
+                    </textarea>
                   </div>
 
                   <div className={styles.item}>
                     <div className={styles.label}>Заметка:</div>
-                    <div className={styles.text}>{geo.note}</div>
+                    <textarea className={styles.text_description} readOnly>
+                      {geo.note}
+                    </textarea>
                   </div>
 
                   <div className={styles.item}>

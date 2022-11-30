@@ -41,7 +41,7 @@ export const designationsApi = createApi({
           : [{ type: "designations", id: "LIST" }],
     }),
 
-    getDesignation: build.query<any, number>({
+    getDesignation: build.query<IDesignation, number>({
       query: (id) => `/designation/${id}`,
       providesTags: (_geo, _err, id) => [{ type: "designations", id }],
     }),
