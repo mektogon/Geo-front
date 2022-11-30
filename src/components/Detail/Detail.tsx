@@ -14,10 +14,8 @@ import {
   Spinner,
   UpdateIcon,
 } from "@common";
-import { UploadComponent } from "@common/upload/Upload";
 import { FormGeo, Slider } from "@components";
 import { Switch } from "@headlessui/react";
-import { addCardSchema } from "@utils/validation";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -77,15 +75,10 @@ export const Detail = () => {
     label: type.name,
   }));
 
-  if (
-    isLoading &&
-    isLoadingTypeObjects &&
-    isLoadingDesignations &&
-    isLoadingTypeLocalities
-  )
+  if (isLoading && isLoadingTypeObjects && isLoadingTypeLocalities)
     return <Spinner />;
   if (isUpdating) return <Spinner />;
-
+  if (isLoadingDesignations) return <Spinner />;
   if (!geo) return <div>Missing geo!</div>;
 
   const url = geo?.audioList![0]?.url;
@@ -211,8 +204,19 @@ export const Detail = () => {
               data.append("type", values.type);
               data.append("note", values.note);
 
+              if (
+                values.locality === "" &&
+                values.region === "" &&
+                values.district === "" &&
+                values.houseNumber === "" &&
+                values.street === ""
+              ) {
+                data.append("typeLocality", "");
+              } else {
+                data.append("typeLocality", values?.typeLocality);
+              }
+
               data.append("region", values.region);
-              data.append("typeLocality", values?.typeLocality);
 
               data.append("longitude", values.longitude);
               data.append("latitude", values.latitude);
@@ -226,7 +230,7 @@ export const Detail = () => {
                 .unwrap()
                 .then((payload: any) => {
                   toast.success("Succeeded", payload);
-                  setIsActive(!isActive);
+                  // setIsActive(!isActive);
                 })
                 .catch((data: any) => toast.error(data.data.message));
             }}

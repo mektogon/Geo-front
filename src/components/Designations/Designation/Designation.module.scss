@@ -3,7 +3,7 @@
 }
 
 .name {
-  @apply mt-3 font-mono text-xl font-bold;
+  @apply mt-3 w-[150px] overflow-hidden text-ellipsis whitespace-nowrap font-mono  text-xl font-bold;
 }
 
 .img {

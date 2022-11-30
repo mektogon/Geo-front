@@ -24,14 +24,14 @@ export const addCardSchema = Yup.object().shape({
   houseNumber: Yup.string().notRequired(),
 
   photo: Yup.mixed().test(
-    "required",
-    "Please select a file",
+    "Обязательное поле",
+    "Пожалуйста, выберите файл",
     (files: FileList) => files?.length > 0
   ),
 
   audio: Yup.mixed().test(
-    "required",
-    "Please select a file",
+    "Обязательное поле",
+    "Пожалуйста, выберите файл",
     (files: FileList) => files?.length > 0
   ),
 });
