@@ -5,7 +5,7 @@ import styles from "./Input.module.scss";
 
 interface InputProps extends React.ComponentPropsWithRef<"input"> {
   isLoading?: boolean;
-  error?: string;
+  error?: any;
   text?: string;
   className?: any;
 }

@@ -12,6 +12,7 @@ import {
   Player,
   SelectField,
   Spinner,
+  Tooltip,
   UpdateIcon,
 } from "@common";
 import { FormGeo, Slider } from "@components";
@@ -89,6 +90,7 @@ export const Detail = () => {
         .unwrap()
         .then((payload: any) => {
           toast.success("Succeeded", payload);
+          window.location.reload();
         })
         .catch((data) => toast.error(data.status));
     }
@@ -230,7 +232,7 @@ export const Detail = () => {
                 .unwrap()
                 .then((payload: any) => {
                   toast.success("Succeeded", payload);
-                  // setIsActive(!isActive);
+                  setIsActive(!isActive);
                 })
                 .catch((data: any) => toast.error(data.data.message));
             }}
@@ -386,7 +388,9 @@ export const Detail = () => {
               </div>
 
               {!isToggle ? (
-                <Slider items={geo.photoList} />
+                <div style={{ height: "360px" }}>
+                  <Slider items={geo.photoList} />
+                </div>
               ) : (
                 <div className={styles.video_player}>
                   <ReactPlayer
@@ -432,7 +436,13 @@ export const Detail = () => {
 
                   <div className={styles.item}>
                     <div className={styles.label}>Тип:</div>
-                    <div className={styles.text_geo}>{geo.type}</div>
+                    <Tooltip
+                      behavior="hover"
+                      content={geo.type}
+                      placement="top"
+                    >
+                      <div className={styles.text_overflow}>{geo.type}</div>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
@@ -464,14 +474,16 @@ export const Detail = () => {
                 <div className={styles.items}>
                   <div className={styles.item}>
                     <div className={styles.label}>Описание:</div>
-                    <div className={styles.text_description}>
+                    <textarea className={styles.text_description} readOnly>
                       {geo.description}
-                    </div>
+                    </textarea>
                   </div>
 
                   <div className={styles.item}>
                     <div className={styles.label}>Заметка:</div>
-                    <div className={styles.text}>{geo.note}</div>
+                    <textarea className={styles.text_description} readOnly>
+                      {geo.note}
+                    </textarea>
                   </div>
 
                   <div className={styles.item}>
