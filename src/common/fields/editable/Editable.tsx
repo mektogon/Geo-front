@@ -66,10 +66,10 @@ export const EditableInput = ({
 
       <div className={styles.buttons}>
         <Button type="submit" disabled={loading} variant="text">
-          {loading ? "Updating..." : "Update"}
+          {loading ? "Обновление..." : "Обновить"}
         </Button>
         <Button onClick={handleCancel} disabled={loading} variant="text">
-          Cancel
+          Отменить
         </Button>
       </div>
     </form>

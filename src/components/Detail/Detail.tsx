@@ -82,14 +82,16 @@ export const Detail = () => {
   if (isLoadingDesignations) return <Spinner />;
   if (!geo) return <div>Missing geo!</div>;
 
-  const url = geo?.audioList![0]?.url;
+  const audio = geo?.audioList[0]?.url;
+  const player = geo?.videoList[0]?.url;
+  const img = geo?.designation?.url;
 
   const deleteHandlerVideo = async (item: number | undefined) => {
-    if (window.confirm("Delete video?")) {
+    if (window.confirm("Удалить видеозапись?")) {
       await deleteVideo(item!)
         .unwrap()
         .then((payload: any) => {
-          toast.success("Succeeded", payload);
+          toast.success("Успешно!", payload);
           window.location.reload();
         })
         .catch((data) => toast.error(data.status));
@@ -97,11 +99,11 @@ export const Detail = () => {
   };
 
   const deleteHandlerAudio = async (item: number | undefined) => {
-    if (window.confirm("Delete audio?")) {
+    if (window.confirm("Удалить аудиозапись?")) {
       await deleteAudio(item!)
         .unwrap()
         .then((payload: any) => {
-          toast.success("Succeeded", payload);
+          toast.success("Успешно!", payload);
           window.location.reload();
         })
         .catch((data) => toast.error(data.status));
@@ -113,14 +115,14 @@ export const Detail = () => {
       await deleteGeo(id!)
         .unwrap()
         .then((payload: any) => {
-          toast.success("Deleted", payload);
+          toast.success("Успешно!", payload);
         })
         .catch(({ data }) => toast.error(data.error));
     }
   };
 
   const geoDesignation = designations?.filter(
-    ({ id }) => id === geo?.designation?.id
+    ({ id }: any) => id === geo?.designation?.id
   );
 
   const geoInitial = {
@@ -130,9 +132,9 @@ export const Detail = () => {
     region: geo.addressDto !== null ? geo?.addressDto?.region : "",
     type: geo.type,
     id: geo.id,
-    photo: geo?.photoList?.map((photo) => photo),
-    audio: geo?.audioList?.map((audio) => audio),
-    video: geo?.videoList?.map((video) => video),
+    photo: geo?.photoList?.map((photo: any) => photo),
+    audio: geo?.audioList?.map((audio: any) => audio),
+    video: geo?.videoList?.map((video: any) => video),
     latitude: geo?.latitude,
     designation: geoDesignation[0]?.name,
     longitude: geo?.longitude,
@@ -144,7 +146,7 @@ export const Detail = () => {
     houseNumber: geo.addressDto !== null ? geo?.addressDto?.houseNumber : "",
   };
 
-  console.log(geoDesignation, " geoDesignation");
+  console.log(geo, "geo");
 
   return (
     <div className={styles.detail}>
@@ -231,7 +233,7 @@ export const Detail = () => {
               await updateGeo(data)
                 .unwrap()
                 .then((payload: any) => {
-                  toast.success("Succeeded", payload);
+                  toast.success("Успешно!", payload);
                   setIsActive(!isActive);
                 })
                 .catch((data: any) => toast.error(data.data.message));
@@ -264,7 +266,7 @@ export const Detail = () => {
                       name="video"
                       type="file"
                       className={styles.input}
-                      onChange={(event) => {
+                      onChange={(event: any) => {
                         setFieldValue("video", event.target.files[0]);
                       }}
                     />
@@ -284,7 +286,7 @@ export const Detail = () => {
                           name="audio"
                           type="file"
                           className={styles.input}
-                          onChange={(event) => {
+                          onChange={(event: any) => {
                             setFieldValue("audio", event.target.files[0]);
                           }}
                         />
@@ -360,7 +362,7 @@ export const Detail = () => {
                     />
 
                     <Button type="submit" variant="outlined">
-                      Save
+                      Обновить
                     </Button>
                   </div>
                 </div>
@@ -394,21 +396,17 @@ export const Detail = () => {
               ) : (
                 <div className={styles.video_player}>
                   <ReactPlayer
-                    url={geo?.videoList[0]?.url}
+                    url={player}
                     controls
                     width="100%"
                     style={{ position: "relative" }}
                   />
 
-                  {geo?.videoList[0]?.url ? (
+                  {geo?.videoList && (geo?.videoList[0]?.url! as any) ? (
                     <Button
                       variant="text"
                       disabled={isDeletingVideo}
-                      onClick={() => deleteHandlerVideo(geo.videoList[0].id)}
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter")
-                          deleteHandlerVideo(geo.videoList[0].id);
-                      }}
+                      onClick={() => deleteHandlerVideo(geo?.videoList[0]?.id)}
                     >
                       <DeleteIcon />
                     </Button>
@@ -418,10 +416,7 @@ export const Detail = () => {
               <div className={styles.designation}>
                 <div>
                   <p>Обозначение</p>
-                  <LoadableImage
-                    style={styles.image}
-                    src={geo?.designation?.url}
-                  />
+                  <LoadableImage style={styles.image} src={img} />
                 </div>
                 <div className={styles.desc}>
                   <div className={styles.item}>
@@ -447,20 +442,16 @@ export const Detail = () => {
                 </div>
               </div>
 
-              {!geo.audioList?.length <= 0 && (
+              {geo.audioList.length <= 0 ? null : (
                 <div className={styles.audio_player}>
                   <div>
-                    <Player url={url} />
+                    <Player url={audio} />
                   </div>
                   <div className={styles.icon}>
                     <Button
                       variant="text"
                       disabled={isDeletingAudio}
                       onClick={() => deleteHandlerAudio(geo.audioList[0].id)}
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter")
-                          deleteHandlerAudio(geo.audioList[0].id);
-                      }}
                     >
                       <DeleteIcon />
                     </Button>

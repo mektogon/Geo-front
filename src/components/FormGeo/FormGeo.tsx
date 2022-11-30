@@ -35,7 +35,6 @@ export const FormGeo = ({
       />
 
       <TextArea
-        type="text"
         name="note"
         placeholder="Заметка"
         onChange={handleChange}

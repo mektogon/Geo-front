@@ -38,7 +38,7 @@ export const Designations: React.FC = () => {
     await uploadDesignaion(data)
       .unwrap()
       .then((payload: any) => {
-        toast.success("Succeeded", payload);
+        toast.success("Успешно!", payload);
       })
       .catch(({ data }) => toast.error(data.error));
   };
@@ -56,7 +56,7 @@ export const Designations: React.FC = () => {
         onChange={handleChange}
         placeholder="Поиск обозначения"
       />
-      <Button variant="text">Добавить Обозначения</Button>
+      <Button variant="text">Добавить Обозначение</Button>
       <form className={styles.add} onSubmit={onSubmit}>
         <div className={styles.field}>
           <Input

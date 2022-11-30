@@ -24,6 +24,16 @@ export interface Photo {
   url: string;
 }
 
+export interface Video {
+  id: number;
+  url: string;
+}
+
+export interface Audio {
+  id: number;
+  url: string;
+}
+
 export interface Geo {
   id?: number;
   name?: string;
@@ -36,8 +46,8 @@ export interface Geo {
   designation?: string;
   addressDto?: AddressDto;
   photoList?: Photo[];
-  videoList?: string[];
-  audioList?: string[];
+  videoList?: Video[];
+  audioList?: Audio[];
 }
 
 export type TGeo = Geo[];

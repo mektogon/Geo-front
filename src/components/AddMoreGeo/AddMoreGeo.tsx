@@ -112,7 +112,7 @@ export const AddMoreGeo = () => {
           await createGeo(data)
             .unwrap()
             .then((payload: any) => {
-              toast.success("Succeeded", payload);
+              toast.success("Успешно!", payload);
               navigate("/");
             })
             .catch((data: any) => toast.error(data.data.error));
@@ -166,7 +166,7 @@ export const AddMoreGeo = () => {
                 maxFiles={5}
                 error={errors.photo}
                 size="120px"
-                extension="'jpeg', 'png'"
+                extension='"jpeg", "png"'
               />
 
               <UploadComponent
@@ -177,7 +177,7 @@ export const AddMoreGeo = () => {
                 placeholder="Аудио"
                 error={errors.audio}
                 size="70px"
-                extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
+                extension='"mp3", "ogg", "wav", "aiff", "flac", "mpeg", "m4a", "x-m4a"'
               />
 
               <UploadComponent

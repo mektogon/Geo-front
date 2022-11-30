@@ -29,7 +29,7 @@ export const SignInForm = () => {
     }
     if (isSuccess) {
       navigate("/");
-      toast.success(`Hello `, {
+      toast.success(`Добро пожаловать! `, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -79,7 +79,7 @@ export const SignInForm = () => {
             />
 
             <Button type="submit" variant="outlined">
-              Sign In
+              Войти
             </Button>
           </Form>
         )}

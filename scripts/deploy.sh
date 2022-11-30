@@ -7,7 +7,7 @@ echo "Starting app deploy.."
 echo "Copying files... Please wait."
 
 scp -r -i ~/.ssh/id_rsa \
-  build/* \
+  dist/* \
   username@changeMeToServerAddress:/folderToCopy
 
 echo "Done! Bye!"

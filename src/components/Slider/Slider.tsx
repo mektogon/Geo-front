@@ -29,18 +29,16 @@ export const Slider = memo(({ items, video, lastIdx }: SliderProps) => {
     useDeletePhotoMutation();
 
   const deleteHandler = async (item: number | undefined) => {
-    if (window.confirm("Delete photo?")) {
+    if (window.confirm("Удалить фотографию?")) {
       await deletePhoto(item!)
         .unwrap()
         .then((payload: any) => {
-          toast.success("Succeeded", payload);
+          toast.success("Успешно!", payload);
           window.location.reload();
         })
         .catch((data) => toast.error(data.status));
     }
   };
-
-  console.log(video, "video");
 
   return (
     <Swiper

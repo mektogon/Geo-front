@@ -165,7 +165,7 @@ export const UploadComponent: React.FC<UploadProps> = (props: UploadProps) => {
           <p className={styles.text}>Drop the files here ...</p>
         ) : (
           <p className={styles.text}>
-            Drag drop some files here, or click to select files {extension}
+            Перетащите или щелкните, чтобы выбрать файлы: {extension}
           </p>
         )}
       </div>

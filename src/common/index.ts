@@ -5,7 +5,6 @@ export * from "./grid/Grid";
 export * from "./icons/Delete/Delete";
 export * from "./icons/Update/Update";
 export * from "./image/Image";
-export * from "./modal/Modal";
 export * from "./player/player";
 export * from "./spinner/Spinner";
 export * from "./tooltip/Tooltip";

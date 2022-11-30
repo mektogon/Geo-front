@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
           <li className={styles.item}>
             {!username ? (
               <Link to="/auth">
-                <Button variant="outlined">Sign In</Button>
+                <Button variant="outlined">Войти</Button>
               </Link>
             ) : (
               <Button variant="outlined" onClick={onLogout}>

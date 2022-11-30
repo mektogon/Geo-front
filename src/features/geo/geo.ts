@@ -53,7 +53,7 @@ export const geoApi = createApi({
       providesTags: [{ type: "geo", id: "LIST" }],
     }),
 
-    getGeography: build.query<Geo, number>({
+    getGeography: build.query<any, number>({
       query: (id) => `geo/web/${id}`,
       providesTags: (_geo, _err, id) => [{ type: "geo", id }],
     }),
@@ -83,7 +83,7 @@ export const geoApi = createApi({
       providesTags: [{ type: "types", id: "LIST" }],
     }),
 
-    getDesignations: build.query<[], []>({
+    getDesignations: build.query<any, any>({
       query: () => ({
         url: "/designation",
         method: "GET",

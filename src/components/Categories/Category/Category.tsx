@@ -19,7 +19,7 @@ export const Category = ({ name, id }: Ctg) => {
     useUpdateCategoryMutation();
 
   const deleteHandler = async (id: Ctg["id"] | undefined) => {
-    if (window.confirm("Delete category?")) {
+    if (window.confirm("Удалить категорию?")) {
       await deleteCategory(id!).unwrap();
     }
   };
@@ -36,7 +36,7 @@ export const Category = ({ name, id }: Ctg) => {
               .then((result: any) => {
                 setIsEditing(false);
               })
-              .catch((error) => console.error("Update Error", error))
+              .catch((error) => console.error("Ошибка обновления!", error))
           }
           onCancel={() => setIsEditing(false)}
           loading={isUpdatingCategory}

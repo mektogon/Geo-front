@@ -28,7 +28,7 @@ export const Categories: React.FC<CategoryProps> = ({ searchTerm }) => {
     await addCategory(data)
       .unwrap()
       .then((payload: any) => {
-        toast.success("Succeeded", payload);
+        toast.success("Успешно!", payload);
         resetForm("");
       })
       .catch((error: any) => toast.error(error.data));
@@ -61,7 +61,7 @@ export const Categories: React.FC<CategoryProps> = ({ searchTerm }) => {
                     error={errors.name}
                   />
                   <Button variant="text" loading={isLoadingCreateCategory}>
-                    Save
+                    Сохранить
                   </Button>
                 </Form>
               )}
