@@ -91,7 +91,7 @@ interface UploadProps {
   maxFiles: number;
   size?: string;
   values?: any;
-  error?: string | null;
+  error?: any;
   deleteObject?: any;
   isLoading?: boolean;
 }

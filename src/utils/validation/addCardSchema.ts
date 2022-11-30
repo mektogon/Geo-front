@@ -1,7 +1,5 @@
 import * as Yup from "yup";
 
-// const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
-
 export const addCardSchema = Yup.object().shape({
   name: Yup.string().required("Обязательное поле"),
   type: Yup.string().required("Обязательное поле"),
@@ -16,7 +14,7 @@ export const addCardSchema = Yup.object().shape({
     .min(-180)
     .max(180),
   note: Yup.string().notRequired(),
-  description: Yup.string().notRequired(),
+  description: Yup.string().required("Обязательно поле"),
 
   region: Yup.string().notRequired(),
   typeLocality: Yup.string().notRequired(),
@@ -25,16 +23,15 @@ export const addCardSchema = Yup.object().shape({
   district: Yup.string().notRequired(),
   houseNumber: Yup.string().notRequired(),
 
-  // photo: Yup.mixed()
-  //   .required("*Avatar image is required")
-  //   .test(
-  //     "fileSize",
-  //     "Image too large, max 8mb",
-  //     (value) => value && value.size <= 200000000000000000000000000
-  //   )
-  //   .test(
-  //     "fileFormat",
-  //     "Images only",
-  //     (value) => value && SUPPORTED_FORMATS.includes(value.type)
-  //   ),
+  photo: Yup.mixed().test(
+    "required",
+    "Please select a file",
+    (files: FileList) => files?.length > 0
+  ),
+
+  audio: Yup.mixed().test(
+    "required",
+    "Please select a file",
+    (files: FileList) => files?.length > 0
+  ),
 });

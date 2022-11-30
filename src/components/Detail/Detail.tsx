@@ -191,7 +191,6 @@ export const Detail = () => {
         {isActive ? (
           <Formik
             initialValues={geoInitial}
-            validationSchema={addCardSchema}
             onSubmit={async (values) => {
               const data: any = new FormData();
 

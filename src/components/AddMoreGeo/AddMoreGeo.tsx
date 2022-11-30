@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -164,6 +164,7 @@ export const AddMoreGeo = () => {
                 values={values.photo}
                 placeholder="Фото"
                 maxFiles={5}
+                error={errors.photo}
                 size="120px"
                 extension="'jpeg', 'png'"
               />
@@ -174,6 +175,7 @@ export const AddMoreGeo = () => {
                 maxFiles={1}
                 values={values.audio}
                 placeholder="Аудио"
+                error={errors.audio}
                 size="70px"
                 extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
               />
@@ -182,6 +184,7 @@ export const AddMoreGeo = () => {
                 setFieldValue={setFieldValue}
                 name="video"
                 maxFiles={1}
+                values={values.video}
                 size="70px"
                 placeholder="Видео"
                 extension='"avi", "mp4", "mkv", "wmv", "asf", "mpeg"'
