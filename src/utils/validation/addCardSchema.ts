@@ -23,15 +23,18 @@ export const addCardSchema = Yup.object().shape({
   district: Yup.string().notRequired(),
   houseNumber: Yup.string().notRequired(),
 
-  photo: Yup.mixed().test(
-    "Обязательное поле",
-    "Пожалуйста, выберите файл",
-    (files: FileList) => files?.length > 0
-  ),
-
-  audio: Yup.mixed().test(
-    "Обязательное поле",
-    "Пожалуйста, выберите файл",
-    (files: FileList) => files?.length > 0
-  ),
+  // По требованию заказчика данные поля
+  // выносятся из списка обязательных полей
+  // (Возможно, как временный вариант)
+  // photo: Yup.mixed().test(
+  //   "Обязательное поле",
+  //   "Пожалуйста, выберите файл",
+  //   (files: FileList) => files?.length > 0
+  // ),
+  //
+  // audio: Yup.mixed().test(
+  //   "Обязательное поле",
+  //   "Пожалуйста, выберите файл",
+  //   (files: FileList) => files?.length > 0
+  // ),
 });

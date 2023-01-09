@@ -23,7 +23,7 @@ export const Card: React.FC<Geo> = ({ ...props }) => {
       await deleteGeo(id!)
         .unwrap()
         .then((payload: any) => {
-          toast.success("Deleted", payload);
+          toast.success("Удалено!", payload);
         })
         .catch(({ data }) => toast.error(data.error));
     }
